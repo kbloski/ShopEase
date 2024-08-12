@@ -1,7 +1,7 @@
 import { sequelize } from "../utility/db.js";
 import { DataTypes } from "sequelize";
 
-const Users = sequelize.define('Users', {
+const User = sequelize.define('User', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -30,7 +30,7 @@ const Users = sequelize.define('Users', {
         allowNull: false,
         
         validate: {
-            len: [5, 100],
+            len: [5, 128],
             notNull: { msg:  'Password is needed'},
             notEmpty: { msg: 'Please provide a password' },
             isNotEasy: function (value){
@@ -77,5 +77,5 @@ const Users = sequelize.define('Users', {
 });
 
 export {
-    Users
+    User
 }

@@ -1,11 +1,14 @@
 import { sequelize } from "../utility/db.js";
-import { Users } from "./UsersModel.js";
+import { User } from "./UserModel.js";
+import { Address } from "./AddressModel.js";
+
 
 // TODO - add relations model in this place
 
 await sequelize.sync();
 
 export {
-    Users
+    User,
+    Address
 }
 
