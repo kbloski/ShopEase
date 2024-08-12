@@ -4,6 +4,7 @@ import { ProductController } from "./ProductController.js";
 import { CategoryController } from "./CategoryController.js";
 import { OrderController } from "./OrderController.js";
 import { OrderItemsController } from "./OrderItemsController.js";
+import { PaymentsController } from "./PaymentsController.js";
 
 const userController = new UserController();
 const addressController = new AddressController();
@@ -11,6 +12,7 @@ const productController = new ProductController();
 const categoryController = new CategoryController();
 const orderController = new OrderController();
 const orderItemsController = new OrderItemsController();
+const paymentsController = new PaymentsController();
 
 export { 
     userController,
@@ -18,7 +20,8 @@ export {
     productController,
     categoryController,
     orderController,
-    orderItemsController
+    orderItemsController,
+    paymentsController
 }
 
 
