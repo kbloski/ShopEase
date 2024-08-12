@@ -1,6 +1,14 @@
 import { sequelize } from "../utility/db.js";
 import { DataTypes } from "sequelize";
 
+const rolesArr = [
+    'customer',
+    'admin', 
+    'shop_manager',
+    'product_manager', 
+    'support_customer',
+    ]
+
 const User = sequelize.define('User', {
     id: {
         type: DataTypes.INTEGER,
@@ -43,6 +51,14 @@ const User = sequelize.define('User', {
             }
         }
 
+    },
+
+    role: {
+        type: DataTypes.ENUM(...rolesArr),
+        defaultValue: 'customer',
+        validate: {
+            isIn: [rolesArr]
+        }
     },
 
     name: {

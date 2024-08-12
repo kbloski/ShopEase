@@ -91,6 +91,7 @@ export {
 const admin = await User.create({
     email: 'admin@example.com',
     password: 'test',
+    role: 'admin',
     name: 'admin',
     surname: 'admin',
 })
