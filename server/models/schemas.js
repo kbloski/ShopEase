@@ -4,6 +4,8 @@ import { Address } from "./AddressModel.js";
 import { Product } from "./ProductModel.js";
 import { Order } from "./OrderModel.js";
 import { OrderItems } from "./OrderItemsModel.js";
+import { Category } from "./CategoryModel.js";
+
 
 // TODO - add relations model in this place
 
@@ -14,6 +16,7 @@ export {
     Address,
     Product,
     Order,
-    OrderItems
+    OrderItems,
+    Category
 }
 
