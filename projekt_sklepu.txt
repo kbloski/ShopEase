@@ -1,0 +1,107 @@
+Nazwa Aplikacji: ShopEase
+Cel Aplikacji:
+Stworzenie nowoczesnej, intuicyjnej i funkcjonalnej aplikacji mobilnej, która ułatwi klientom zakupy online, zwiększy zaangażowanie użytkowników, oraz poprawi konwersję i lojalność klientów.
+
+Główne Funkcje:
+Strona Główna:
+
+Banery Promocyjne: Rotacyjne banery promujące najnowsze oferty, wyprzedaże, oraz nowości.
+Spersonalizowane Rekomendacje: Sekcja z produktami sugerowanymi na podstawie historii zakupów i preferencji użytkownika.
+Kategorie Produktów: Przejrzyste i intuicyjne kategorie, umożliwiające łatwe przeglądanie asortymentu.
+Wyszukiwarka:
+
+Wyszukiwanie po Słowach Kluczowych: Możliwość szybkiego wyszukiwania produktów po nazwie, kategorii lub słowach kluczowych.
+Filtry i Sortowanie: Opcje filtrowania wyników według ceny, popularności, nowości, itp.
+Wyszukiwanie Wizualne: Funkcja pozwalająca na wyszukiwanie produktów na podstawie zdjęcia (np. zdjęcia zrobionego aparatem w telefonie).
+Strona Produktu:
+
+Zdjęcia Produktu: Wysokiej jakości zdjęcia z możliwością powiększania i przeglądania z różnych kątów.
+Opis Produktu: Szczegółowy opis, specyfikacje techniczne, informacje o dostępnych rozmiarach/kolorach.
+Oceny i Recenzje: Sekcja z ocenami klientów oraz ich recenzjami.
+Dostępność i Dostawa: Informacja o dostępności produktu oraz przewidywanym czasie dostawy.
+Dodaj do Koszyka/Wishlisty: Szybkie przyciski umożliwiające dodanie produktu do koszyka lub listy życzeń.
+Koszyk i Zakupy:
+
+Podsumowanie Koszyka: Widok wszystkich produktów dodanych do koszyka, wraz z cenami i możliwością edycji ilości.
+Kupony Rabatowe: Możliwość zastosowania kodów rabatowych przed finalizacją zamówienia.
+Opcje Płatności: Integracja z popularnymi metodami płatności (np. karty płatnicze, PayPal, BLIK).
+Opcje Dostawy: Wybór metody dostawy (np. kurier, odbiór w punkcie).
+**Podgląd Całkowitych Kos
+zrób mi projekt bazy danych
+ChatGPT
+Oto projekt bazy danych dla aplikacji sklepu internetowego ShopEase. Baza danych będzie obsługiwać kluczowe funkcje aplikacji, takie jak zarządzanie produktami, użytkownikami, zamówieniami oraz płatnościami.
+
+Schemat Bazy Danych
+1. Tabela Users (Użytkownicy)
+user_id (PRIMARY KEY): Unikalny identyfikator użytkownika.
+email: Adres e-mail użytkownika (unikalny).
+password: Zaszyfrowane hasło użytkownika.
+first_name: Imię użytkownika.
+last_name: Nazwisko użytkownika.
+phone_number: Numer telefonu użytkownika.
+address_id (FOREIGN KEY): Odwołanie do tabeli Addresses.
+created_at: Data założenia konta.
+updated_at: Data ostatniej aktualizacji konta.
+
+2. Tabela Addresses (Adresy)
+address_id (PRIMARY KEY): Unikalny identyfikator adresu.
+user_id (FOREIGN KEY): Odwołanie do tabeli Users.
+street: Ulica.
+city: Miasto.
+state: Województwo.
+postal_code: Kod pocztowy.
+country: Kraj.
+
+3. Tabela Products (Produkty)
+product_id (PRIMARY KEY): Unikalny identyfikator produktu.
+name: Nazwa produktu.
+description: Opis produktu.
+price: Cena produktu.
+stock_quantity: Ilość dostępnych sztuk.
+category_id (FOREIGN KEY): Odwołanie do tabeli Categories.
+created_at: Data dodania produktu.
+updated_at: Data ostatniej aktualizacji produktu.
+
+4. Tabela Categories (Kategorie)
+category_id (PRIMARY KEY): Unikalny identyfikator kategorii.
+name: Nazwa kategorii.
+description: Opis kategorii.
+parent_category_id (FOREIGN KEY): Odwołanie do samej tabeli Categories (dla podkategorii).
+
+5. Tabela Orders (Zamówienia)
+order_id (PRIMARY KEY): Unikalny identyfikator zamówienia.
+user_id (FOREIGN KEY): Odwołanie do tabeli Users.
+total_amount: Całkowita kwota zamówienia.
+status: Status zamówienia (np. przetwarzane, wysłane, zakończone).
+created_at: Data złożenia zamówienia.
+updated_at: Data ostatniej aktualizacji zamówienia.
+
+6. Tabela OrderItems (Elementy Zamówienia)
+order_item_id (PRIMARY KEY): Unikalny identyfikator elementu zamówienia.
+order_id (FOREIGN KEY): Odwołanie do tabeli Orders.
+product_id (FOREIGN KEY): Odwołanie do tabeli Products.
+quantity: Ilość zamówionych sztuk.
+price: Cena produktu w momencie zamówienia.
+
+7. Tabela Payments (Płatności)
+payment_id (PRIMARY KEY): Unikalny identyfikator płatności.
+order_id (FOREIGN KEY): Odwołanie do tabeli Orders.
+payment_method: Metoda płatności (np. karta kredytowa, PayPal).
+amount: Kwota płatności.
+payment_date: Data dokonania płatności.
+
+8. Tabela Reviews (Recenzje)
+review_id (PRIMARY KEY): Unikalny identyfikator recenzji.
+user_id (FOREIGN KEY): Odwołanie do tabeli Users.
+product_id (FOREIGN KEY): Odwołanie do tabeli Products.
+rating: Ocena produktu (skala 1-5).
+comment: Komentarz do recenzji.
+created_at: Data dodania recenzji.
+Relacje pomiędzy tabelami:
+Users - Orders: Jedno do wielu (jeden użytkownik może mieć wiele zamówień).
+Orders - OrderItems: Jeden do wielu (jedno zamówienie może mieć wiele pozycji).
+Products - OrderItems: Jeden do wielu (jeden produkt może być w wielu pozycjach zamówień).
+Categories - Products: Jeden do wielu (jedna kategoria może mieć wiele produktów).
+Users - Reviews: Jeden do wielu (jeden użytkownik może napisać wiele recenzji).
+Products - Reviews: Jeden do wielu (jeden produkt może mieć wiele recenzji).
+Addresses - Users: Jeden do jednego (jeden użytkownik ma przypisany jeden adres, ale może być rozszerzone do wielu adresów).
