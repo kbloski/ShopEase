@@ -13,7 +13,7 @@ const Address = sequelize.define('Address', {
     },
     street: {
         type: DataTypes.STRING(128),
-        allowNull: true,
+        allowNull: false,
         validate: {
             len: [0,128]
         }
@@ -34,7 +34,7 @@ const Address = sequelize.define('Address', {
     },
     state: {
         type: DataTypes.STRING(128),
-        allowNull: false,
+        allowNull: true,
         validate: {
             len: [0,128]
         }

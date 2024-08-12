@@ -30,7 +30,7 @@ const User = sequelize.define('User', {
         allowNull: false,
         
         validate: {
-            len: [5, 128],
+            len: [4, 128],
             notNull: { msg:  'Password is needed'},
             notEmpty: { msg: 'Please provide a password' },
             isNotEasy: function (value){
@@ -49,14 +49,14 @@ const User = sequelize.define('User', {
         type: DataTypes.STRING(16),
         allowNull: false,
         validate: {
-            len: [5,16]
+            len: [2,16]
         }
     },
     surname: {
         type: DataTypes.STRING(32),
         allowNull: false,
         validate: {
-            len: [5,32]
+            len: [2,32]
         }
     },
     age: {

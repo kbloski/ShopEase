@@ -26,6 +26,7 @@ const Payments = sequelize.define('Payments', {
     payment_date: {
         type: DataTypes.DATE,
         allowNull: false,
+        defaultValue: sequelize.literal('CURRENT_TIMESTAMP'),
         validate: {
             isDate: true
         }
