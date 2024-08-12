@@ -5,6 +5,7 @@ import { Product } from "./ProductModel.js";
 import { Order } from "./OrderModel.js";
 import { OrderItems } from "./OrderItemsModel.js";
 import { Category } from "./CategoryModel.js";
+import { Payments } from "./PaymentsModel.js";
 
 
 // TODO - add relations model in this place
