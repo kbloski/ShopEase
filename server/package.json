@@ -2,6 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "main": "serwer.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,5 +18,8 @@
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "sequelize": "^6.37.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
   }
 }
