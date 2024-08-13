@@ -28,6 +28,7 @@ passport.use(
             ...req.body
         }, );
 
+        return done(null, userDb)
     }
 
 ));
