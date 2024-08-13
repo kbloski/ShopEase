@@ -9,6 +9,7 @@ app.use(expressSession({
     resave: false,
     saveUninitialized: true
 }));
+app.use(express.static('./public'));
 
 
 
