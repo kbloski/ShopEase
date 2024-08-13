@@ -17,8 +17,20 @@ export class ProductController {
         })
     };
 
+    async createProduct(productData, categoryDb){
+        const productDb = await Product.create(productData);
+        
+        if (categoryDb) await productDb.setCategory(categoryDb);
+
+        return productDb
+    }
+
     async updateById(id, productData){
-        await Product.update(productData);
+        await Product.update(productData, {
+            where: {
+                id: id
+            }
+        });
     };
 
     async setCategory(productDb, categoryDb){

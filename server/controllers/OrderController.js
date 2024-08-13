@@ -9,6 +9,18 @@ export class OrderController{
         return await Order.findByPk(id);
     };
 
+    
+
+
+    async createOrder(orderData, userDb){
+        const orderDb = await Order.create();
+
+        if (userDb) await orderDb.setUser(userDb);
+
+        return orderDb;
+        
+    }
+
     async setUser(orderDb, userDb){
         await orderDb.setUser(userDb);
     };

@@ -16,11 +16,13 @@ const Reviews = sequelize.define('Reviews', {
         type: DataTypes.DECIMAL(1,1),
         allowNull: false,
         validate: {
-            isDecimal: true
+            isDecimal: true,
+            min: 0,
+            max: 6
         }
     },
 
-    comment: {
+    description: {
         type: DataTypes.STRING(256),
         allowNull: true,
         validate: {

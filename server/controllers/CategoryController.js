@@ -9,6 +9,11 @@ export class CategoryController{
         return await Category.findByPk(id)
     }
 
+    async createCategory(categoryData){
+        return await Category.create(categoryData);
+    }
+
+
     async deleteById(id){
         return await Category.destroy({
             where: { id: id}

@@ -5,6 +5,10 @@ export class AddressController {
         return await Address.findByPk(id);
     }
 
+    async createAddress(addressData){
+        return await Address.create(addressData);
+    }
+
     async updateById(id, addressData){
         await Address.update(
             addressData,

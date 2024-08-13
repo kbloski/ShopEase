@@ -9,6 +9,14 @@ export class PaymentsController {
         return await Payments.findByPk(id)
     };
 
+    async createPayment(paymentData, orderDb){
+        const paymnetDb = await Payments.create(paymentData);
+
+        if (orderDb) await paymnetDb.setOrder(orderDb);
+
+        return paymnetDb;
+    }
+
     async updateById(id, paymentData){
         await Payments.update(
             paymentData,

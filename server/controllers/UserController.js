@@ -5,6 +5,10 @@ export class UserController {
     async getAll(){
         return await User.findAll({});
     };
+    
+    async getById(id){
+        return await User.findByPk(id)
+    } 
 
     async createUser(userData){
         const salt = await bcrypt.genSalt(10);
@@ -14,8 +18,8 @@ export class UserController {
         return userDb;
     };
 
-    async updateAddress(address, userDb){
-        await userDb.setAddress(address);
+    async updateAddress( userDb, addressDb){
+        await userDb.setAddress(addressDb);
     }
 
     async validPassword(password, userDb){
@@ -41,7 +45,8 @@ export class UserController {
     }
 
     async getUserByEmail(email){
-        return await User.findOne({email: email})
+        const userDb = await User.findOne({where: {email: email}});
+        return userDb;
     }
 };
 

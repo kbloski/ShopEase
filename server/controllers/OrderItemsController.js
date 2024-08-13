@@ -17,21 +17,33 @@ export class OrderItemsController {
         });
     };
 
-    async updateQuantityById(id, quantity){
+    async createOrderItem(orderItemData, orderDb, productDb){
+        const orderItemDb = await OrderItems.create(orderItemData);
+
+        if (orderDb) await orderItemDb.setOrder(orderDb);
+
+        if (productDb) {
+            await orderItemDb.setProduct(productDb);
+            await orderItemDb.update({ product_price: productDb.price})
+        }
+
+        return orderItemDb;
+    }
+
+    async updateQuantity(orderItemDb, quantity){
         await OrderItems.update(
             {
                 quantity: quantity
             },
             {
                 where: {
-                    id: id
+                    id: orderItemDb.id
                 }
             }
         )
     };
 
-    async updateProductById(id, productDb){
-        const orderItemDb = await this.getById(id);
+    async updateProduct(orderItemDb, productDb){
         orderItemDb.product_price = productDb.price;
         orderItemDb.product_id	= productDb.id;
 

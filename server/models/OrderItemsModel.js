@@ -14,13 +14,13 @@ const OrderItems = sequelize.define('OrderItems', {
 
     quantity: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         validate: { isInt: true}
     },
 
     product_price: {
-        type: DataTypes.DECIMAL.UNSIGNED,
-        allowNull: false,
+        type: DataTypes.DECIMAL(7,2),
+        allowNull: true,
         validate: { isDecimal: true}
     }
 
