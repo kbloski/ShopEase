@@ -1,7 +1,7 @@
 import express from 'express';
 import expressSession from 'express-session';
 import cors from 'cors';
-import { Json } from 'sequelize/lib/utils';
+import {passport} from './utility/auth.js';
 
 const app = express();
 
@@ -13,16 +13,34 @@ app.use(cors());
 //     allowedHeaders: ['Content-Type', 'Authorization']
 // }));
 
+// app.use(express.urlencoded( {extended: false }));
 
+// ** parsowanie danych odebranych w json
+// app.use(express.json());
+// app.use(bodyParser.text({ type: 'application/json' }));
+app.use((req, res, next) => { // my middleware to manual get data 
+    let data = '';
+    req.on('data', chunk => {
+        data += chunk;
+    });
+    req.on('end', () => {
+        req.body = data;
+        next();
+    });
+});
 
+app.use(express.static('./public'));
 
-app.use(express.urlencoded( {extended: false }));
 app.use(expressSession({
     secret: 'mY_s3creT_C0oD3',
     resave: false,
     saveUninitialized: true
 }));
-app.use(express.static('./public'));
+
+// ** passportJs
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 
 
@@ -32,10 +50,19 @@ app.get('/', (req,res)=>{
     res.json(msg);
 });
 
-app.post('/api/register', (req, res) => {
+app.post('/api/register', 
+    async (req, res, next) => {
+        req.body = JSON.parse(req.body);
+        next();
+    }, 
+    passport.authenticate('local-register', {
+    }),
+    (req, res) => {
+        res.json( {user: req.user } )
+    }
+
     
-    res.send( JSON.stringify( {msg: 'Test połaczenia' } ));
-})
+)
 
 app.listen(3010, ()=>{
     console.log('Server started at port 3010')

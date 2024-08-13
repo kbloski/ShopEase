@@ -56,6 +56,7 @@ const User = sequelize.define('User', {
     role: {
         type: DataTypes.ENUM(...rolesArr),
         defaultValue: 'customer',
+        allowNull: false,
         validate: {
             isIn: [rolesArr]
         }
