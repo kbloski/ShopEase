@@ -73,7 +73,7 @@ Product.hasMany(Reviews, {
     foreignKey: 'product_id'
 })
 
-await sequelize.sync( {force: true});  
+await sequelize.sync();  
 
 export {
     User,
