@@ -10,11 +10,14 @@ export class UserController {
         return await User.findByPk(id)
     } 
 
-    async createUser(userData){
+    async createUser(userData, addressDb){
         const salt = await bcrypt.genSalt(10);
         userData.password = await bcrypt.hash(userData.password, salt);
 
         const userDb = User.create(userData);
+
+        if (addressDb) await userDb.setAddress(addressDb);
+
         return userDb;
     };
 

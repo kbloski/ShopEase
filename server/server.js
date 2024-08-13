@@ -19,6 +19,15 @@ app.get('/', (req,res)=>{
     res.json(msg);
 });
 
+
+
+// app.post('/api/login', ( req, res) => {
+//     console.log(req.body)
+// }); 
+
+
+
+
 app.listen(3010, ()=>{
     console.log('Server started at port 3010')
 });
