@@ -1,6 +1,7 @@
 import { sequelize } from "../utility/db.js";
 import { User } from "./UserModel.js";
 import { Address } from "./AddressModel.js";
+import { Photo } from "./PhotoModel.js";
 import { Product } from "./ProductModel.js";
 import { Order } from "./OrderModel.js";
 import { OrderItems } from "./OrderItemsModel.js";
@@ -18,6 +19,14 @@ Address.hasOne(User, {
 User.belongsTo(Address, {
     foreignKey: 'address_id'
 });
+
+// Relation for photo and product
+Product.hasMany(Photo, {
+    foreignKey: 'product_id'
+});
+Photo.belongsTo(Product, {
+    foreignKey: 'product_id'
+})
 
 // Relation for products and categories
 Category.hasMany(Product, {
@@ -83,5 +92,6 @@ export {
     OrderItems,
     Category,
     Payments,
-    Reviews
+    Reviews,
+    Product
 }
