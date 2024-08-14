@@ -19,6 +19,14 @@ const Delivery = sequelize.define('Delivery', {
         }
     },
 
+    price: {
+        type: DataTypes.DECIMAL(3,2),
+        allowNull: true,
+        validate: {
+            isDecimal: true
+        }
+    },
+
     deliveryMethod: {
         type: DataTypes.STRING,
         allowNull: false,
