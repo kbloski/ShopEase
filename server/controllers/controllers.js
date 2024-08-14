@@ -1,5 +1,6 @@
 import { UserController } from "./UserController.js";
 import { AddressController } from "./AddressController.js";
+import { PhotoController } from "./PhotoController.js";
 import { ProductController } from "./ProductController.js";
 import { CategoryController } from "./CategoryController.js";
 import { OrderController } from "./OrderController.js";
@@ -7,8 +8,10 @@ import { OrderItemsController } from "./OrderItemsController.js";
 import { PaymentsController } from "./PaymentsController.js";
 import { ReviewController } from "./ReviewsController.js";
 
+
 const userController = new UserController();
 const addressController = new AddressController();
+const photoController = new PhotoController();
 const productController = new ProductController();
 const categoryController = new CategoryController();
 const orderController = new OrderController();
@@ -19,6 +22,7 @@ const reviewController = new ReviewController();
 export { 
     userController,
     addressController,
+    photoController,
     productController,
     categoryController,
     orderController,
