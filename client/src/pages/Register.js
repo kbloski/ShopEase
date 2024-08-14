@@ -30,13 +30,13 @@ export default class Register extends Component{
 
         })
         .then( response => {
-            if (!response.ok) return { user: undefined} ;
+            if (!response.ok) return console.error('Can\'t register user');
             return response.json();
 
         }).then( data => {
-            if (data.user){
+            if (data?.user){
                 // userExists
-                console.log( data.user)
+                console.log( data?.user)
             }
             return { msg: 'User dont create'}
             
@@ -70,11 +70,11 @@ export default class Register extends Component{
                     </div>
                     <div className='p-2'>
                         <label htmlFor="nameControl" className="form-label">Name</label>
-                        <input type="text" name="name" id="nameControl" className="form-control" onChange={this.handleChange}/>
+                        <input type="text" name="name" id="nameControl" className="form-control" onChange={this.handleChange} required/>
                     </div>
                     <div className='p-2'>
                         <label htmlFor="surnameControl" className="form-label">Surname</label>
-                        <input type="text" name="surname" id="surnameControl" className="form-control" onChange={this.handleChange}/>
+                        <input type="text" name="surname" id="surnameControl" className="form-control" onChange={this.handleChange} required/>
                     </div>
                     <div className="p-2">
                         <label htmlFor="ageControl" className="form-label">Age</label>

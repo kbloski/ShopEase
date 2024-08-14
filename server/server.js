@@ -1,7 +1,7 @@
 import express from 'express';
 import expressSession from 'express-session';
 import cors from 'cors';
-import {passport} from './utility/auth.js';
+import {passport, checkLoggedIn} from './utility/auth.js';
 
 const app = express();
 
@@ -51,8 +51,10 @@ app.get('/', (req,res)=>{
     res.json(msg);
 });
 
-app.get('/api/login', 
+app.post('/api/login', 
+    checkLoggedIn,
     (req, res, next) => {
+        
         req.body = {
             email: 'admin@example.com',
             password: 'test'
@@ -61,15 +63,18 @@ app.get('/api/login',
     },  
     passport.authenticate('local-login'),
     (req, res) => {
-        res.json( { user: req.user} )
+        res.statusCode = 200;
+        res.json( { user: req.user} );
     }
 )
 
 app.post('/api/register', 
+    checkLoggedIn,
     passport.authenticate('local-register', {
     }),
     (req, res) => {
-        res.json( { user: req.user } )
+        res.statusCode = 200;
+        res.json( { user: req.user })
     }
 )
 
