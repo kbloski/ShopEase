@@ -8,6 +8,7 @@ import { OrderItems } from "./OrderItemsModel.js";
 import { Category } from "./CategoryModel.js";
 import { Payments } from "./PaymentsModel.js";
 import { Reviews } from "./ReviewsModel.js";
+import { Delivery } from "./DeliveryModel.js";
 
 
 // TODO - add relations model in this place
@@ -82,16 +83,34 @@ Product.hasMany(Reviews, {
     foreignKey: 'product_id'
 })
 
+// Relations Delivery
+Address.hasMany(Delivery, {
+    foreignKey: 'address_id'
+});
+Delivery.belongsTo(Address, {
+    foreignKey: 'address_id'
+})
+
+Order.hasOne(Delivery, {
+    foreignKey: 'order_id'
+});
+Delivery.belongsTo(Order, {
+    foreignKey: 'order_id'
+})
+
+
+
 await sequelize.sync();  
 
 export {
     User,
     Address,
+    Photo,
     Product,
     Order,
     OrderItems,
     Category,
     Payments,
     Reviews,
-    Product
+    Delivery
 }
