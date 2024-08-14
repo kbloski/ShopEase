@@ -18,16 +18,17 @@ app.use(cors());
 // ** parsowanie danych odebranych w json
 // app.use(express.json());
 // app.use(bodyParser.text({ type: 'application/json' }));
+
 app.use((req, res, next) => { // my middleware to manual get data 
     let data = '';
     req.on('data', chunk => {
         data += chunk;
     });
     req.on('end', () => {
-        req.body = data;
+        if (data) req.body = JSON.parse(data);
         next();
     });
-});
+}); 
 
 app.use(express.static('./public'));
 
@@ -50,18 +51,26 @@ app.get('/', (req,res)=>{
     res.json(msg);
 });
 
-app.post('/api/register', 
-    async (req, res, next) => {
-        req.body = JSON.parse(req.body);
+app.get('/api/login', 
+    (req, res, next) => {
+        req.body = {
+            email: 'admin@example.com',
+            password: 'test'
+        }
         next();
-    }, 
+    },  
+    passport.authenticate('local-login'),
+    (req, res) => {
+        res.json( { user: req.user} )
+    }
+)
+
+app.post('/api/register', 
     passport.authenticate('local-register', {
     }),
     (req, res) => {
-        res.json( {user: req.user } )
+        res.json( { user: req.user } )
     }
-
-    
 )
 
 app.listen(3010, ()=>{
