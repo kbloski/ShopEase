@@ -1,81 +1,47 @@
-import passport from 'passport';
-import LocalStrategy from 'passport-local';
+import jwt from "jsonwebtoken";
 import { userController } from '../controllers/controllers.js';
 
-const checkLoggedIn = (req, res, next) => {
-    if (req.isAuthenticated() ) return res.json( {msg: 'You are logged!'} );
-    return next();
-}
+class WebTokenController {
+    constructor(){
+        this.SECRET_KEY = 'superSecretKeyForTokens';
 
-// ** Passport 
-passport.use('local-login',
-    new LocalStrategy({
-        usernameField: 'email',
-        passwordField: 'password',
-    },
-    async (email, password, done)=>{
-        try {
-            const userExists = await userController.getUserByEmail(email);
-            if (!userExists) return done(null, false);
-            const validResult = await userController.validPassword(password, userExists);
-            if ( !validResult ) return done(null, false);
-    
-            return done(null, userExists)
-        } catch(err){
-            done(err)
+    };
+
+    createWebToken(
+        payloadData,
+        options = {
+            expiresIn: '14d'
         }
-    })
-)
+    ){
+        const token = jwt.sign(payloadData, this.SECRET_KEY, options);
+        return token;
+    };
 
-passport.use(
-    'local-register',
-    new LocalStrategy({
-        usernameField: 'email',
-        passwordField: 'password',
-        passReqToCallback: true,
-    },
-    async (req, email, password, done) => {
+    verifyWebToken(token){
+        if (!token) return false;
+
         try {
-            
-            if (await userController.getUserByEmail(email)) return done(null, false);
-            
-    
-            const userDb = await userController.createUser({
-                email: email,
-                password: password,
-                name: req.body.name ,
-                surname: req.body.surname ,
-                age: req.body.age ? req.body.age : null,
-                phone: req.body.phone ? req.body.phone : null,
-            }, );
-            
-            return done(null, userDb)
-
+            const decoded = jwt.verify( token, this.SECRET_KEY);
+            return decoded;
         } catch (err){
-            done(error)
+            return false;
         }
     }
-));
+};
+const webTokenController = new WebTokenController();
 
-passport.serializeUser( async (user, done) => {
-    try {
-        return done(null, user.id);
-    } catch (err){
-        done(error)
-    }
-});
+const authenticateToken = async (req, res, next) => {
 
-passport.deserializeUser( async (userId, done) => {
-    try {
-        const userDb = await userController.getById(userId);
-        return done(null, userDb);
-    } catch (err) {
-        done(error)
+    const result = webTokenController.verifyWebToken( req.token );
+    if (!result){
+        res.statusCode = 403;
+        res.send('403 Forbidden, maybe you are logged out!')
     }
-    
-});
+        
+    next();
+};
 
 export {
-    passport,
-    checkLoggedIn
+    webTokenController,
+    authenticateToken
 }

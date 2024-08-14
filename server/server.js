@@ -1,7 +1,10 @@
 import express from 'express';
 import expressSession from 'express-session';
 import cors from 'cors';
-import {passport, checkLoggedIn} from './utility/auth.js';
+import { webTokenController} from './utility/auth.js';
+import { categoryController, userController } from './controllers/controllers.js';
+import { registerUser } from './middlewares/register.js';
+import { userLogin } from './middlewares/login.js';
 
 const app = express();
 
@@ -32,15 +35,7 @@ app.use((req, res, next) => { // my middleware to manual get data
 
 app.use(express.static('./public'));
 
-app.use(expressSession({
-    secret: 'mY_s3creT_C0oD3',
-    resave: false,
-    saveUninitialized: true
-}));
 
-// ** passportJs
-app.use(passport.initialize());
-app.use(passport.session());
 
 
 
@@ -51,30 +46,43 @@ app.get('/', (req,res)=>{
     res.json(msg);
 });
 
-app.post('/api/login', 
-    checkLoggedIn,
+app.get('/api/login', 
     (req, res, next) => {
-        
         req.body = {
             email: 'admin@example.com',
             password: 'test'
         }
         next();
     },  
-    passport.authenticate('local-login'),
+    userLogin,
     (req, res) => {
         res.statusCode = 200;
-        res.json( { user: req.user} );
+        if (req?.user) {
+            const userData = req.user.dataValues;
+            delete userData.password 
+            delete userData.createdAt 
+            delete userData.updatedAt 
+
+            const token = webTokenController.createWebToken( userData )    
+
+            res.json( {
+                getToken: true,
+                token: token
+            } );
+        } else {
+            res.json({
+                getToken: false
+            })
+        }
+        
     }
 )
 
 app.post('/api/register', 
-    checkLoggedIn,
-    passport.authenticate('local-register', {
-    }),
-    (req, res) => {
+    registerUser,
+    async (req, res) => {
         res.statusCode = 200;
-        res.json( { user: req.user })
+        res.json( req.registerCallback ) 
     }
 )
 

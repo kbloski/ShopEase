@@ -34,11 +34,7 @@ export default class Register extends Component{
             return response.json();
 
         }).then( data => {
-            if (data?.user){
-                // userExists
-                console.log( data?.user)
-            }
-            return { msg: 'User dont create'}
+            console.log(data)            
             
         })
         
