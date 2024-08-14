@@ -40,11 +40,7 @@ app.use(express.static('./public'));
 
 
 
-app.get('/', (req,res)=>{
-    res.setHeader('Content-Type', 'application/json');
-    const msg = { msg: "Server started"}
-    res.json(msg);
-});
+app.get('/api/products')
 
 app.get('/api/login', 
     (req, res, next) => {
@@ -85,6 +81,12 @@ app.post('/api/register',
         res.json( req.registerCallback ) 
     }
 )
+
+app.get('/', (req,res)=>{
+    res.setHeader('Content-Type', 'application/json');
+    const msg = { msg: "Server started"}
+    res.json(msg);
+});
 
 app.listen(3010, ()=>{
     console.log('Server started at port 3010')
