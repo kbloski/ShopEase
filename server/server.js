@@ -40,16 +40,8 @@ app.use(express.static('./public'));
 
 
 
-app.get('/api/products')
 
 app.get('/api/login', 
-    (req, res, next) => {
-        req.body = {
-            email: 'admin@example.com',
-            password: 'test'
-        }
-        next();
-    },  
     userLogin,
     (req, res) => {
         res.statusCode = 200;
@@ -63,11 +55,13 @@ app.get('/api/login',
 
             res.json( {
                 getToken: true,
-                token: token
+                token: token,
+                msg: 'Logged in'
             } );
         } else {
             res.json({
-                getToken: false
+                getToken: false,
+                msg: 'Not logged in'
             })
         }
         
