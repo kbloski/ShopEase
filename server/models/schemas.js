@@ -91,11 +91,11 @@ Delivery.belongsTo(Address, {
     foreignKey: 'address_id'
 })
 
-Order.hasOne(Delivery, {
-    foreignKey: 'order_id'
+Delivery.hasOne(Order, {
+    foreignKey: 'delivery_id'
 });
-Delivery.belongsTo(Order, {
-    foreignKey: 'order_id'
+Order.belongsTo(Delivery, {
+    foreignKey: 'delivery_id'
 })
 
 
