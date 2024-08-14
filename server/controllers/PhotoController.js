@@ -9,6 +9,14 @@ export class PhotoController {
         return await Photo.findByPk(id)
     };
 
+    async createPicture(pictureData){
+        return await Photo.create(pictureData)
+    }
+
+    async setProduct(photoDb, productDb){
+        await photoDb.setProduct(productDb)
+    };
+
     async updateById(id, photoData){
         await Photo.update(photoData, {
             where: {
