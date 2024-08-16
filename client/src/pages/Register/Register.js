@@ -50,7 +50,7 @@ export default class Register extends Component{
 
     handleSubmit = (event) => {
         event.preventDefault()
-}
+    }
 
     render(){
         return (
