@@ -41,7 +41,7 @@ app.use(express.static('./public'));
 
 
 
-app.get('/api/login', 
+app.post('/api/login', 
     userLogin,
     (req, res) => {
         res.statusCode = 200;
