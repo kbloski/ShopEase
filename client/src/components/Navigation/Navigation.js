@@ -17,6 +17,9 @@ export default function Navigation(props){
                 </Link></li>
                 <li><Link to={ basicUrl+ '/login'}>Login</Link></li>
                 <li><Link to={ basicUrl + '/register'}>Register</Link></li>
+                <li>
+                    <Link to={ basicUrl + '/product/add'}>Add product</Link>
+                </li>
             </ul>
         </nav>
     );
