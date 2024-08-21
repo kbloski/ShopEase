@@ -45,7 +45,7 @@ export default function Login(props) {
                 localStorage.setItem(USERAUTH_KEY, decodedToken(data.token))
                 navigate(storeConfig.basicUrl)
             }
-
+            console.log( data )
         }).catch(err => {
             console.error(err)
         })
