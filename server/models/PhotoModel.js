@@ -11,14 +11,22 @@ const Photo = sequelize.define('Photo',{
             isInt: true
         }
     },
-
-    imageUrl: {
+    name: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: false
     },
+    description: {
+        type: DataTypes.TEXT,
+        allowNull: true
+    },
+
+    url: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
 
 })
 
 export {
     Photo
-}
+} 

@@ -12,7 +12,7 @@ export class ProductController {
     async getByCategory(categoryDb){
         return await Product.findAll({
             where: {
-                category_id: categoryDb.id
+                categoryId: categoryDb.id
             }
         })
     };

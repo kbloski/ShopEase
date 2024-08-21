@@ -12,7 +12,7 @@ export class OrderItemsController {
     async getAllforOrder(orderDb){
         return await OrderItems.findAll({
             while: {
-                order_id: orderDb.id
+                orderId: orderDb.id
             }
         });
     };
@@ -45,7 +45,7 @@ export class OrderItemsController {
 
     async updateProduct(orderItemDb, productDb){
         orderItemDb.product_price = productDb.price;
-        orderItemDb.product_id	= productDb.id;
+        orderItemDb.productId	= productDb.id;
 
         await OrderItems.update(orderItemDb, { 
             where: { id: orderItemDb.id}

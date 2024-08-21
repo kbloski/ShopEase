@@ -15,87 +15,87 @@ import { Delivery } from "./DeliveryModel.js";
 
 // Relation for Address and User
 Address.hasOne(User, {
-    foreignKey: 'address_id'
+    foreignKey: 'addressId'
 });
 User.belongsTo(Address, {
-    foreignKey: 'address_id'
+    foreignKey: 'addressId'
 });
 
 // Relation for photo and product
 Product.hasMany(Photo, {
-    foreignKey: 'product_id'
+    foreignKey: 'productId'
 });
 Photo.belongsTo(Product, {
-    foreignKey: 'product_id'
+    foreignKey: 'productId'
 })
 
 // Relation for products and categories
 Category.hasMany(Product, {
-    foreignKey: 'category_id',
+    foreignKey: 'categoryId',
 });
 Product.belongsTo(Category, {
-    foreignKey: 'category_id'
+    foreignKey: 'categoryId'
 })
 
 // Relation for Orders and User
 User.hasMany(Order, {
-    foreignKey: 'user_id'
+    foreignKey: 'userId'
 })
 Order.belongsTo(User, {
-    foreignKey: 'user_id'
+    foreignKey: 'userId'
 });
 
 // Relation for OrdersItem
 Order.hasMany(OrderItems, {
-    foreignKey: 'order_id'
+    foreignKey: 'orderId'
 });
 OrderItems.belongsTo(Order, {
-    foreignKey: 'order_id'
+    foreignKey: 'orderId'
 })
 
 Product.hasMany(OrderItems, {
-    foreignKey: 'product_id'
+    foreignKey: 'productId'
 })
 OrderItems.belongsTo(Product, {
-    foreignKey: 'product_id'
+    foreignKey: 'productId'
 })
 
 // Relation for Payments
-Payments.belongsTo(Order, {
-    foreignKey: 'order_id'
+Payments.belongsTo(Order, { 
+    foreignKey: 'orderId'
 })
 Order.hasOne(Payments, {
-    foreignKey: 'order_id'
+    foreignKey: 'orderId'
 })
 
 // Relation for Reviews
 Reviews.belongsTo(User, {
-    foreignKey: 'user_id'
+    foreignKey: 'userId'
 });
 User.hasMany(Reviews, {
-    foreignKey: 'user_id'
+    foreignKey: 'userId'
 })
 
 Reviews.belongsTo(Product, {
-    foreignKey: 'product_id'
+    foreignKey: 'productId'
 });
 Product.hasMany(Reviews, {
-    foreignKey: 'product_id'
+    foreignKey: 'productId'
 })
 
 // Relations Delivery
 Address.hasMany(Delivery, {
-    foreignKey: 'address_id'
+    foreignKey: 'addressId'
 });
 Delivery.belongsTo(Address, {
-    foreignKey: 'address_id'
+    foreignKey: 'addressId'
 })
 
 Delivery.hasOne(Order, {
-    foreignKey: 'delivery_id'
+    foreignKey: 'deliveryId'
 });
 Order.belongsTo(Delivery, {
-    foreignKey: 'delivery_id'
+    foreignKey: 'deliveryId'
 })
 
 

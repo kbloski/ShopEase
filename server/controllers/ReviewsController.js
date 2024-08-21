@@ -10,7 +10,7 @@ export class ReviewController {
     }
 
     async getAllByProductId(productId){
-        return await Reviews.findAll({where: { product_id: productId}})
+        return await Reviews.findAll({where: { productId: productId}})
     };
 
     async setUser(reviewDb, userDb){
