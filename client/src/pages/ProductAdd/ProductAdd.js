@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export default function ProductAdd(props) {
-    const [pictures, setPictures] = useState([null]);
+    const [pictures, setPictures] = useState([]);
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState(0);
@@ -10,15 +10,9 @@ export default function ProductAdd(props) {
 
     const handleChange = (event) => {
         const { name, value, files } = event.target;
-        if (event.target.type === "file") {
-            if (pictures[0] === null){
-                setPictures([files])
-            }
-        
-            else if (pictures.length < 5){
-
+        if (event.target.type === "file") {  
                 setPictures([files, ...pictures])
-            }
+           
             
         } else {
             switch (name) {
@@ -52,11 +46,14 @@ export default function ProductAdd(props) {
         formData.append( 'description', description)
         formData.append( 'price', price)
         formData.append( 'avaible_stock', avaible_stock)
-        formData.append( 'category_id', categoryId)
+        formData.append( 'categoryId', categoryId)
 
-        pictures.forEach(file => {
-            formData.append('images', file[0]);
-        });
+        if (pictures) {
+
+            pictures.forEach(file => {
+                formData.append('images', file[0]);
+            });
+        }
         
 
         fetch('http://localhost:3010/api/product/add', {

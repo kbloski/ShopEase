@@ -2,27 +2,11 @@ import express from 'express';
 import expressSession from 'express-session';
 import cors from 'cors';
 import { webTokenController} from './utility/auth.js';
-import { categoryController, userController } from './controllers/controllers.js';
+import { categoryController, photoController, productController, userController } from './controllers/controllers.js';
 import { registerUser } from './middlewares/register.js';
 import { userLogin } from './middlewares/login.js';
 import { upload } from './utility/uploadFiles.js';
-
-// import path from 'path';
-// import multer from 'multer';
-// // file storage
-// const storage = multer.diskStorage(
-//     {
-//         destination: function (req, file, cb) {
-//             cb(null, 'uploads/');
-//         },
-//         filename: function (req, file, cb){
-//             cb(null, Date.now() + path.extname(file.originalname));
-//         }
-//     }
-// );
-
-// const upload = multer({storage: storage});
-
+import { canTreatArrayAsAnd } from 'sequelize/lib/utils';
 
 const app = express();
 
@@ -38,16 +22,36 @@ app.use(express.json());
 
 app.use(express.static('./public'));
 
-app.post('/api/product/add', upload.array('images'), (req, res) => {
-    console.log( req.files )
-    // console.log( JSON.stringify)
-    // console.log( JSON.stringify( req.body.images[1] ) )
-    res.json(  { msg: 'Succes add product', data: req.body} );
+app.post('/api/product/add', upload.array('images'), async (req, res) => {
+    const { name, description, price, avaible_stock, categoryId } = req.body;
+    
+    console.log( name, description, price, avaible_stock, categoryId)
+    if (!name) res.json( {msg: '', created: false });
 
+    const productDb = await productController.createProduct({
+        name: name, 
+        description: description,
+        price: price,
+        avaible_stock: avaible_stock,
+    });
+
+    if (categoryId) {
+        const categoryDb = await categoryController.getById( categoryId);
+        await productController.setCategory( productDb, categoryDb);
+    };
+
+    if (req.files){
+        for (const img of req.files){
+            const photoDb = await photoController.createPicture({
+                name: img.filename,
+                url: img.destination
+            })
+
+            await photoController.setProduct( photoDb, productDb);
+        }
+    }
+    res.json(  { msg: 'Succes add product', created: true} );
 });
-
-
-
 
 app.post('/api/login', 
     userLogin,

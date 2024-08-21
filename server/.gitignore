@@ -1,3 +1,6 @@
+uploads/products_data/img/*.png
+uploads/products_data/img/*.jpg
+
 # Logs
 logs
 *.log
