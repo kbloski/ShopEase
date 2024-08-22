@@ -1,7 +1,7 @@
 import { sequelize } from '../utility/db.js';
 import { DataTypes } from 'sequelize';
 
-const Photo = sequelize.define('Photo',{
+const Picture = sequelize.define('Picture',{
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -28,5 +28,5 @@ const Photo = sequelize.define('Photo',{
 })
 
 export {
-    Photo
+    Picture
 } 

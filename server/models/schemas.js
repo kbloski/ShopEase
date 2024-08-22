@@ -1,7 +1,7 @@
 import { sequelize } from "../utility/db.js";
 import { User } from "./UserModel.js";
 import { Address } from "./AddressModel.js";
-import { Photo } from "./PhotoModel.js";
+import { Picture } from "./PictureModel.js";
 import { Product } from "./ProductModel.js";
 import { Order } from "./OrderModel.js";
 import { OrderItems } from "./OrderItemsModel.js";
@@ -21,11 +21,11 @@ User.belongsTo(Address, {
     foreignKey: 'addressId'
 });
 
-// Relation for photo and product
-Product.hasMany(Photo, {
+// Relation for Picture and product
+Product.hasMany(Picture, {
     foreignKey: 'productId'
 });
-Photo.belongsTo(Product, {
+Picture.belongsTo(Product, {
     foreignKey: 'productId'
 })
 
@@ -105,7 +105,7 @@ await sequelize.sync();
 export {
     User,
     Address,
-    Photo,
+    Picture,
     Product,
     Order,
     OrderItems,
