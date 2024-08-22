@@ -12,7 +12,7 @@ import { DeliveryController } from "./DeliveryController.js";
 
 const userController = new UserController();
 const addressController = new AddressController();
-const photoController = new PictureController();
+const pictureController = new PictureController();
 const productController = new ProductController();
 const categoryController = new CategoryController();
 const orderController = new OrderController();
@@ -25,7 +25,7 @@ const deliveryController = new DeliveryController();
 export { 
     userController,
     addressController,
-    photoController,
+    pictureController,
     productController,
     categoryController,
     orderController,

@@ -1,12 +1,12 @@
 import express from 'express';
-import expressSession from 'express-session';
 import cors from 'cors';
+import path from 'path';
 import { webTokenController} from './utility/auth.js';
-import { categoryController, photoController, productController, userController } from './controllers/controllers.js';
+import { categoryController, productController, pictureController } from './controllers/controllers.js';
 import { registerUser } from './middlewares/register.js';
 import { userLogin } from './middlewares/login.js';
 import { upload } from './utility/uploadFiles.js';
-import { canTreatArrayAsAnd } from 'sequelize/lib/utils';
+
 
 const app = express();
 
@@ -22,7 +22,29 @@ app.use(express.json());
 
 app.use(express.static('./public'));
 
+app.get('/api/product/:productId/pictures', async (req, res) => {
+    const { productId } = req.params;
+    if (!productId ) throw new Error('Error /api/product/:productId/pictures - dont have productId');
 
+    const pictures = await pictureController.getByProductId(productId);
+    res.json( pictures);
+});
+
+app.get('/api/picture/:id', async (req, res) => {
+    const { id } = req.params;
+    if (!id) res.status(500).json( { msg: 'Don\t have id for picture'} );
+    
+    const picture = await pictureController.getById(id);
+    let filePath = picture.url;
+    
+
+    res.sendFile( path.resolve( filePath) );
+});
+
+app.get('/api/product/all', async (req, res) => {
+    const productsDb = await productController.getAll();
+    res.status(200).json( productsDb );
+});
 
 app.get('/api/categories/all', async (req, res) => {
     const categoryArr = await categoryController.getAll();
@@ -48,12 +70,12 @@ app.post('/api/product/add', upload.array('images'), async (req, res) => {
 
     if (req.files){
         for (const img of req.files){
-            const photoDb = await photoController.createPicture({
+            const photoDb = await pictureController.createPicture({
                 name: img.filename,
-                url: img.destination
+                url: img.destination + img.filename,
             })
 
-            await photoController.setProduct( photoDb, productDb);
+            await pictureController.setProduct( photoDb, productDb);
         }
     }
     res.json(  { msg: 'Succes add product', created: true} );

@@ -9,9 +9,13 @@ export class PictureController {
         return await Picture.findByPk(id)
     };
 
+    async getByProductId(id){
+        return await Picture.findAll({where: { productId: id} })
+    };
+
     async createPicture(pictureData){
         return await Picture.create(pictureData)
-    }
+    };
 
     async setProduct(PictureDb, productDb){
         await PictureDb.setProduct(productDb)
