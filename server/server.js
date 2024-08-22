@@ -22,6 +22,12 @@ app.use(express.json());
 
 app.use(express.static('./public'));
 
+
+
+app.get('/api/categories/all', async (req, res) => {
+    const categoryArr = await categoryController.getAll();
+    res.status(200).json(categoryArr);
+})
 app.post('/api/product/add', upload.array('images'), async (req, res) => {
     const { name, description, price, avaible_stock, categoryId } = req.body;
     
