@@ -1,7 +1,10 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import storeConfig from "../../../config/storeConfig";
 
 export default function ListItem(props){
+    const { basicUrl } = storeConfig;
+
     const [pictureUrl, setPictureUrl] = useState('/images/default-product-img.png')
 
     useEffect( ()=>{
@@ -16,11 +19,11 @@ export default function ListItem(props){
         };
 
         getPicture(props.product.id);
-    },[])
+    },[props.product.id])
 
     return(
         <li className="row p-2 mt-2 bg-light ">
-            <Link to={`/product/${props.product.id}/view`} className="text-decoration-none text-body">
+            <Link to={basicUrl + `/product/${props.product.id}/card`} className="text-decoration-none text-body" >
                 <div className="row justify-content-between ">
                     <div className="col-8 ">
                         <img src={pictureUrl} alt="" className="" style={{ maxWidth: '150px', maxHeight: '150px' }} />

@@ -10,6 +10,7 @@ import Register from './pages/Register/Register.js';
 import Login from './pages/Login/Login.js';
 import ProductAdd from './pages/ProductAdd/ProductAdd.js';
 import Store from './pages/Store/Store.js';
+import ProductCard from './pages/ProductCard/ProductCard.js';
 
 function App() {
   const {basicUrl} = storeConfig;
@@ -22,6 +23,7 @@ function App() {
             <Route path= { basicUrl + '/login'} element={<Login />} />
             <Route path= { basicUrl + '/product/add'} element={ <ProductAdd />} />
             <Route path= { basicUrl + '/store' } element={<Store />} />
+            <Route path= { basicUrl + '/product/:id/card'} element={<ProductCard />}/>
           </Routes>
     </div>
   );

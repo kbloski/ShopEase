@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import path from 'path';
 import { webTokenController} from './utility/auth.js';
-import { categoryController, productController, pictureController } from './controllers/controllers.js';
+import { categoryController, productController, pictureController, reviewController, userController } from './controllers/controllers.js';
 import { registerUser } from './middlewares/register.js';
 import { userLogin } from './middlewares/login.js';
 import { upload } from './utility/uploadFiles.js';
@@ -21,6 +21,37 @@ app.use(express.json());
 // app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static('./public'));
+
+app.get('/api/product/:productId/reviews', async (req, res) => {
+    const { productId } = req.params;
+    if (!productId) throw new Error('Error api - /api/product/:productId/reviews - don\'t give productId');
+
+    const reviews = await reviewController.getAllByProductId(productId);
+
+    
+    // Przekształcanie tablicy recenzji w tablicę obietnic
+    const reviewsWithUser = await Promise.all(reviews.map(async review => {
+        if (review.userId){
+            const userDb = await userController.getById(review.userId);
+            delete userDb.dataValues.password;
+            review.dataValues.user = userDb.dataValues;
+        }
+        return review;
+    }));
+
+    // const userDb = await userController.getById( reviews)
+    console.log( reviewsWithUser )
+
+    res.json( reviews );
+});
+
+app.get('/api/product/:id', async (req, res) => {
+    const { id } = req.params;
+    if (!id) throw new Error('Error /api/product/id - not give id');
+
+    const productDb = await productController.getById(id); 
+    res.json( productDb );
+})
 
 app.get('/api/product/:productId/pictures', async (req, res) => {
     const { productId } = req.params;
@@ -41,8 +72,8 @@ app.get('/api/picture/:id', async (req, res) => {
     res.sendFile( path.resolve( filePath) );
 });
 
-app.get('/api/product/all', async (req, res) => {
-    const productsDb = await productController.getAll();
+app.get('/api/product/get/all', async (req, res) => {
+    const productsDb = await productController.getAll();;
     res.status(200).json( productsDb );
 });
 

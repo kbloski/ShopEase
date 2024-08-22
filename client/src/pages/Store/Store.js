@@ -7,9 +7,9 @@ export default function Store(props){
     useEffect(() => {
         async function getProducts(){
 
-            const products = await fetch("http://localhost:3010/api/product/all", {method: 'GET'})
+            const products = await fetch("http://localhost:3010/api/product/get/all", {method: 'GET'})
             .then( response => { 
-                if (!response.ok) throw new Error('Error server - http://localhost:3010/api/product/all');
+                if (!response.ok) throw new Error('Error server - http://localhost:3010/api/product/get/all');
     
                 return response.json();
             })
@@ -20,6 +20,7 @@ export default function Store(props){
         getProducts();
 
     }, []);
+
 
 
     return(
