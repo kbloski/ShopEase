@@ -6,7 +6,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 import App from './App.js';
-import Register from './pages/Register/Register.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

@@ -13,8 +13,8 @@ export default function Login(props) {
     const handleChange = (event) => {
         const { name, value} = event.target;
 
-        if (name == 'email') setEmail(value);
-        if (name == 'password') setPassword(value)
+        if (name === 'email') setEmail(value);
+        if (name === 'password') setPassword(value)
     }
 
     const handleSubmit = async (event) => {
