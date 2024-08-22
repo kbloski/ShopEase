@@ -2,6 +2,9 @@ import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 
 import storeConfig from './config/storeConfig.js';
 
+import Footer from './components/Footer/Footer.js';
+import Header from './components/Header/Header.js';
+
 import HomePage from './pages/HomePage/HomePage.js';
 import Register from './pages/Register/Register.js';
 import Login from './pages/Login/Login.js';
@@ -29,8 +32,9 @@ function AppWraper(){
   // Dodanie navigacji dla wszystkich stron internetowych
   return (
     <BrowserRouter>
-      
+      <Header />
       <App />
+      <Footer />
     </BrowserRouter>
   )
 }
