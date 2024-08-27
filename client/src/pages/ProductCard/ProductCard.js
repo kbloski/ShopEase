@@ -3,36 +3,46 @@ import { useParams } from "react-router-dom"
 
 export default function ProductCard(props){
     const { id } = useParams();
-    const [product, setProduct] = useState({});
-    const [picturesArr, setPicturesArr ] = useState([]);
+    const [ product, setProduct] = useState({});
+    const [ picturesArr, setPicturesArr ] = useState([]);
     const [ reviewsArr, setReviewsArr] = useState([]);
 
     useEffect( ()=>{
         const getProduct = async (id) => {
-            const product = await fetch(`http://localhost:3010/api/products/${id}`, {method: 'GEt'})
+            const product = await fetch(
+                `http://localhost:3010/api/products/${id}`, 
+                {method: 'GEt'}
+            )
             .then( response => {
                 if (!response.ok) throw new Error('Fetch error - https://localhost:3010/api/products/id');
                 return response.json()
             })
-            .catch(err => console.error(err))
-            setProduct(product)
+            .catch( err => console.error(err));
+            
+            setProduct(product);
         }
         getProduct(id);
 
         const getPictures = async(id) => {
-            const pictures = await fetch(`http://localhost:3010/api/products/${id}/pictures`, {method: 'GET'})
+            const pictures = await fetch(
+                `http://localhost:3010/api/products/${id}/pictures`, 
+                {method: 'GET'}
+            )
             .then( response => {
                 if (!response.ok) throw new Error('Error server - api:http://localhost:3010/api/products/id/pictures ');
                 return response.json();
             })
-            .catch(err => console.error(err))
+            .catch( err => console.error(err))
 
             setPicturesArr(pictures);
         };
         getPictures(id);
 
         const getReviews = async(id) => {
-            const reviews = await fetch(`http://localhost:3010/api/products/${id}/reviews`, {method: 'GET'})
+            const reviews = await fetch(
+                `http://localhost:3010/api/products/${id}/reviews`, 
+                {method: 'GET'}
+            )
             .then( response => {
                 if (!response.ok) throw new Error('Error server - api:http://localhost:3010/api/products/id/pictures ');
                 return response.json()
@@ -41,9 +51,11 @@ export default function ProductCard(props){
             setReviewsArr(reviews);
         }
         getReviews(id);
+    }, [ id ]);
 
-    }, [ id ])
 
+
+    
     return(
         <div id='container p-2'>
             <div className='row gx-4'>

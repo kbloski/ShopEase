@@ -11,14 +11,19 @@ export default function ProductAdd(props) {
 
     useEffect(() => {
         const fetchCategories = async () => {
-            try {
-                const response = await fetch("http://localhost:3010/api/categories/all", { method: 'GET' });
-                if (!response.ok) throw new Error('Error fetch categories');
-                const data = await response.json();
-                setCategories(data);
-            } catch (err) {
-                console.error(err);
-            }
+                await fetch(
+                    "http://localhost:3010/api/categories/all",
+                    { method: 'GET' }
+                )
+                .then( response => {
+                        if (!response.ok) throw new Error('Error fetch categories');
+                        return response.json();
+                    }
+                )
+                .then( data => {
+                    setCategories( data );
+                })
+                .catch(err => console.error('Error fetch categories' , err));
         };
 
         fetchCategories();
@@ -61,25 +66,25 @@ export default function ProductAdd(props) {
         formData.append('available_stock', available_stock);
         formData.append('categoryId', categoryId);
 
-        if (pictures.length > 0) {
-            pictures.forEach(file => {
-                formData.append('images', file);
-            });
-        }
+        if (pictures.length > 0) pictures.forEach( file => formData.append('images', file) );
 
-        fetch('http://localhost:3010/api/products/add', {
-            method: 'POST',
-            body: formData
-        })
+        fetch(
+            'http://localhost:3010/api/products/add', 
+            {
+                method: 'POST',
+                body: formData
+            }
+        )
         .then(response => {
             if (!response.ok) throw new Error('Error adding product');
             return response.json();
         })
-        .then(response => {
-            console.log(response);
-        })
         .catch(err => console.error(err));
     }
+
+
+
+
 
     return (
         <div>

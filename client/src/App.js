@@ -21,8 +21,9 @@ function App() {
             <Route path= { basicUrl } element={<HomePage />} />
             <Route path= { basicUrl + '/register'} element={ <Register /> } />
             <Route path= { basicUrl + '/login'} element={<Login />} />
-            <Route path= { basicUrl + '/product/add'} element={ <ProductAdd />} />
             <Route path= { basicUrl + '/store' } element={<Store />} />
+            <Route path= { basicUrl + '/product/add'} element={ <ProductAdd />} />
+            <Route path= { basicUrl + '/product/:id/card'} element={<ProductCard />}/>
             <Route path= { basicUrl + '/product/:id/card'} element={<ProductCard />}/>
           </Routes>
     </div>

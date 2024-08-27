@@ -14,42 +14,40 @@ export default class Register extends Component{
         }
     };
 
-    sendFormData = async () => {
-        const formData = this.state;
-        if (!formData.email) return false;
-        if (!formData.password) return false;
-        if (!formData.name) return false;
-        if (!formData.surname) return false;
-
-        await fetch('http://localhost:3010/api/register', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',  
-            },
-            body: JSON.stringify(formData),
-
-        })
-        .then( response => {
-            if (!response.ok) return console.error('Can\'t register user');
-            return response.json();
-
-        }).then( data => {
-            console.log(data)            
-            
-        })
-        
-    };
-
     handleChange = (event) => {
         const {name, value} = event.target;
-
         this.setState( state => {
             state[name] = value
         })
     }
 
-    handleSubmit = (event) => {
+    handleSubmit = async (event) => {
         event.preventDefault()
+
+        const formData = this.state;
+        
+        if (!formData.email) return false;
+        if (!formData.password) return false;
+        if (!formData.name) return false;
+        if (!formData.surname) return false;
+
+
+        await fetch(
+            'http://localhost:3010/api/register', 
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',  
+                },
+                body: JSON.stringify(formData),
+            }
+        )
+        .then( response => {
+            if (!response.ok) return console.error('Can\'t register user');
+            return response.json();
+        }).then( data => {
+            console.log(data);        
+        })
     }
 
     render(){
@@ -80,7 +78,7 @@ export default class Register extends Component{
                         <label htmlFor="phoneControl" className="form-label">Phone</label>
                         <input type="number" name="phone" id="phoneControl" className="form-control" onChange={this.handleChange}/>
                     </div>
-                    <button type='submit' className='btn btn-primary' onClick={this.sendFormData} >Register</button>
+                    <button type='submit' className='btn btn-primary' onClick={this.handleSubmit} >Register</button>
                 </form>
             </div>
         );
