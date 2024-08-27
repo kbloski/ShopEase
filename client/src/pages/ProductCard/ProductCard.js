@@ -9,9 +9,9 @@ export default function ProductCard(props){
 
     useEffect( ()=>{
         const getProduct = async (id) => {
-            const product = await fetch(`http://localhost:3010/api/product/${id}`, {method: 'GEt'})
+            const product = await fetch(`http://localhost:3010/api/products/${id}`, {method: 'GEt'})
             .then( response => {
-                if (!response.ok) throw new Error('Fetch error - https://localhost:3010/api/product/id');
+                if (!response.ok) throw new Error('Fetch error - https://localhost:3010/api/products/id');
                 return response.json()
             })
             .catch(err => console.error(err))
@@ -20,9 +20,9 @@ export default function ProductCard(props){
         getProduct(id);
 
         const getPictures = async(id) => {
-            const pictures = await fetch(`http://localhost:3010/api/product/${id}/pictures`, {method: 'GET'})
+            const pictures = await fetch(`http://localhost:3010/api/products/${id}/pictures`, {method: 'GET'})
             .then( response => {
-                if (!response.ok) throw new Error('Error server - api:http://localhost:3010/api/product/id/pictures ');
+                if (!response.ok) throw new Error('Error server - api:http://localhost:3010/api/products/id/pictures ');
                 return response.json();
             })
             .catch(err => console.error(err))
@@ -32,9 +32,9 @@ export default function ProductCard(props){
         getPictures(id);
 
         const getReviews = async(id) => {
-            const reviews = await fetch(`http://localhost:3010/api/product/${id}/reviews`, {method: 'GET'})
+            const reviews = await fetch(`http://localhost:3010/api/products/${id}/reviews`, {method: 'GET'})
             .then( response => {
-                if (!response.ok) throw new Error('Error server - api:http://localhost:3010/api/product/id/pictures ');
+                if (!response.ok) throw new Error('Error server - api:http://localhost:3010/api/products/id/pictures ');
                 return response.json()
             } )
             .catch(err => console.error(err));
@@ -49,7 +49,7 @@ export default function ProductCard(props){
             <div className='row gx-4'>
                 <div className='col-8 bg-light' style={ { minHeight: '500px' } } >
                     { picturesArr.map( picture => {
-                        return <img key={picture.id} src={`http://localhost:3010/api/picture/${picture.id}`} alt='' className='img-fluid'/>
+                        return <img key={picture.id} src={`http://localhost:3010/api/pictures/${picture.id}`} alt='' className='img-fluid'/>
                     })}
                 </div>  
                 <div className='col-4 d-flex align-items-center justify-content-center'>

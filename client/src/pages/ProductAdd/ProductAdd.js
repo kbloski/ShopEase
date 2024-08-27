@@ -5,7 +5,7 @@ export default function ProductAdd(props) {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState(0);
-    const [avaible_stock, setAvaibleStock] = useState(0);
+    const [available_stock, setAvailableStock] = useState(0);
     const [categoryId, setCategoryId] = useState('');
     const [categories, setCategories] = useState([]);
 
@@ -40,7 +40,7 @@ export default function ProductAdd(props) {
                     setPrice(Number(value));
                     break;
                 case 'avaible_stock':
-                    setAvaibleStock(Number(value));
+                    setAvailableStock(Number(value));
                     break;
                 case 'category':
                     setCategoryId(value);
@@ -58,7 +58,7 @@ export default function ProductAdd(props) {
         formData.append('name', name);
         formData.append('description', description);
         formData.append('price', price);
-        formData.append('avaible_stock', avaible_stock);
+        formData.append('available_stock', available_stock);
         formData.append('categoryId', categoryId);
 
         if (pictures.length > 0) {
@@ -67,7 +67,7 @@ export default function ProductAdd(props) {
             });
         }
 
-        fetch('http://localhost:3010/api/product/add', {
+        fetch('http://localhost:3010/api/products/add', {
             method: 'POST',
             body: formData
         })

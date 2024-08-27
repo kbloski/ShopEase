@@ -9,13 +9,13 @@ export default function ListItem(props){
 
     useEffect( ()=>{
         async function getPicture(productId){
-            const picturesArr = await fetch(`http://localhost:3010/api/product/${productId}/pictures`)
+            const picturesArr = await fetch(`http://localhost:3010/api/products/${productId}/pictures`)
             .then( response => {
                 if (!response.ok) throw new Error('Error server 500');
                 return response.json();
             })
 
-            if (picturesArr[0]) setPictureUrl( 'http://localhost:3010/api/picture/'+ picturesArr[0].id )
+            if (picturesArr[0]) setPictureUrl( 'http://localhost:3010/api/pictures/'+ picturesArr[0].id )
         };
 
         getPicture(props.product.id);
