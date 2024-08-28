@@ -4,7 +4,7 @@ import path from 'path';
 import { categoryController, productController, pictureController, reviewController, userController } from './controllers/controllers.js';
 
 import registerRoutes from './index.js';
-
+import { authorizeToken } from './middlewares/authorizedToken.js';
 
 const app = express();
 
@@ -19,6 +19,8 @@ app.use(cors({
 
 app.use(express.json());
 app.use(express.static('./public'));
+app.use( authorizeToken );
+
 
 registerRoutes(app);
 
