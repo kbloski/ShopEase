@@ -12,21 +12,20 @@ export class ProductController {
     async getByCategory(categoryDb){
         return await Product.findAll({
             where: {
-                categoryId: categoryDb.id
+                category_id: categoryDb.id
             }
         })
     };
 
     async createProduct(productData, categoryDb){
         const productDb = await Product.create(productData);
-        
         if (categoryDb) await productDb.setCategory(categoryDb);
 
-        return productDb
+        return productDb;
     }
 
     async updateById(id, productData){
-        await Product.update(productData, {
+        return await Product.update(productData, {
             where: {
                 id: id
             }
@@ -34,7 +33,7 @@ export class ProductController {
     };
 
     async setCategory(productDb, categoryDb){
-        await productDb.setCategory(categoryDb);
+        await Product.updateById( productDb.id , {category_id: categoryDb.id} );
     }
 
     async deleteById(id){

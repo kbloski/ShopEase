@@ -8,7 +8,7 @@ export default function ProductAdd(props) {
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState(0);
     const [available_stock, setAvailableStock] = useState(0);
-    const [categoryId, setCategoryId] = useState('');
+    const [category_id, setCategoryId] = useState('');
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
@@ -21,7 +21,7 @@ export default function ProductAdd(props) {
     const onChange = (event) => handleChange(event, setName, setDescription, setPrice, setAvailableStock, setCategoryId, setPictures);
 
 
-    const onSubmit = (event) => handleSubmit( event, name, description, price, available_stock, categoryId, pictures);
+    const onSubmit = (event) => handleSubmit( event, name, description, price, available_stock, category_id, pictures);
 
 
 

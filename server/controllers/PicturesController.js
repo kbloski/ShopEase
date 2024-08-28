@@ -10,23 +10,20 @@ export class PictureController {
     };
 
     async getByProductId(id){
-        return await Picture.findAll({where: { productId: id} })
+        return await Picture.findAll({where: { product_id: id} })
     };
 
     async createPicture(pictureData){
         return await Picture.create(pictureData)
     };
 
-    async setProduct(PictureDb, productDb){
-        await PictureDb.setProduct(productDb)
+    async setProduct(pictureDb, productDb){
+        await Picture.update( { product_id: productDb.id} , { where: { id: pictureDb.id }})
+        // await PictureDb.setProduct(productDb)
     };
 
-    async updateById(id, PictureData){
-        await Picture.update(PictureData, {
-            where: {
-                id: id
-            }
-        })
+    async updateById(id, pictureData){
+        return await Picture.update(pictureData, { where: {id: id } });
     };
 
     async deleteById(id){

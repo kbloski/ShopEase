@@ -27,12 +27,12 @@ const Delivery = sequelize.define('Delivery', {
         }
     },
 
-    deliveryMethod: {
+    delivery_method: {
         type: DataTypes.STRING,
         allowNull: false,
     },
     
-    deliveryStatus: {
+    delivery_status: {
         type: DataTypes.ENUM(...arrDeliveryStatus),
         allowNull: false,
         defaultValue: 'pending',
@@ -41,7 +41,7 @@ const Delivery = sequelize.define('Delivery', {
         }
     },
     
-    shipmentDate: {
+    shipment_date: {
         type: DataTypes.DATE,
         allowNull: true,
         validate: {
@@ -49,7 +49,7 @@ const Delivery = sequelize.define('Delivery', {
         }
     },
     
-    deliveryDate: {
+    delivery_date: {
         type: DataTypes.DATE,
         allowNull: true,
         validate: {
@@ -57,7 +57,7 @@ const Delivery = sequelize.define('Delivery', {
         }
     },
 
-    trackingNumber: {
+    tracking_number: {
         type: DataTypes.STRING,
         allowNull: true
     }

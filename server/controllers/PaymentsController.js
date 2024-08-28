@@ -11,19 +11,13 @@ export class PaymentsController {
 
     async createPayment(paymentData, orderDb){
         const paymnetDb = await Payments.create(paymentData);
-
         if (orderDb) await paymnetDb.setOrder(orderDb);
 
         return paymnetDb;
     }
 
     async updateById(id, paymentData){
-        await Payments.update(
-            paymentData,
-            {
-                where: { id: id}
-            }
-        )
+        return await Payments.update( paymentData, { where: { id: id }})
     };
 
     async deleteById(id){

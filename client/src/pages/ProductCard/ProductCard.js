@@ -72,7 +72,7 @@ export default function ProductCard(props){
                         return (
                             <div key={review.id} className='row'>
                                 <div className='col-2'>Rating: {review.rating}</div>
-                                <div className='col-2'>{review.user.email}</div>
+                                <div className='col-2'>{ review.user.email }</div>
                                 <div className='col-8'>Description: { review.description }</div>
                             </div>
                         )

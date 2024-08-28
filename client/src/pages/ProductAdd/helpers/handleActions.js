@@ -44,7 +44,7 @@ export const handleSubmit = (event, name, description, price, available_stock, c
     formData.append('description', description);
     formData.append('price', price);
     formData.append('available_stock', available_stock);
-    formData.append('categoryId', categoryId);
+    formData.append('category_id', categoryId);
 
     if (pictures.length > 0) pictures.forEach( file => formData.append('images', file) );
 

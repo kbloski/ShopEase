@@ -1,4 +1,6 @@
+import { where } from "sequelize";
 import { Order } from "../models/OrderModel.js";
+import { User } from "../models/UserModel.js";
 
 export class OrderController{
     async getAll(){
@@ -10,13 +12,13 @@ export class OrderController{
     };
 
     async getOrdersByUserId(userId){
-        return await Order.findAll( { where: { userId: userId }});
+        return await Order.findAll( { where: { user_id: userId }});
     }
 
     async getOrdersInCartByUserId(userId){
         return await Order.findAll( { where: 
             { 
-                userId: userId, 
+                user_id: userId, 
                 status: 'in_cart'
             }});
     }
@@ -25,22 +27,18 @@ export class OrderController{
         const orderDb = await Order.create();
 
         if (userDb) await orderDb.setUser(userDb);
-
         return orderDb;
-        
     }
 
     async setUser(orderDb, userDb){
-        await orderDb.setUser(userDb);
+        return await Order.update( { user_id: userDb.id}, { where: { id: orderDb.id}});
     };
 
     async updateStatusById(status, id){
         await Order.update(
             {status: status}, 
-            {
-            where: {id: id}
-        })
-    }
+            {where: {id: id}}
+        )}
 
     async deleteById(id){
         await Order.destroy({where: {id: id}})

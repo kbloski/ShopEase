@@ -1,5 +1,7 @@
 import { User } from "../models/schemas.js";
 import bcrypt from 'bcryptjs';
+import { addressController, userController } from "./controllers.js";
+import { where } from "sequelize";
 
 export class UserController {
     async getAll(){
@@ -7,7 +9,7 @@ export class UserController {
     };
     
     async getById(id){
-        return await User.findByPk(id)
+        return await User.findByPk(id);
     } 
 
     async createUser(userData, addressDb){
@@ -22,7 +24,17 @@ export class UserController {
     };
 
     async updateAddress( userDb, addressDb){
-        await userDb.setAddress(addressDb);
+        return await userController.updateById( { adress_id: addressDb.id }, {where: { id: userDb.id } }  )
+    }
+    
+    async updateById(id, userData){
+        const updatedUser = await User.update(userData, {
+            where: {
+                id: id
+            }
+        });
+
+        return updatedUser;
     }
 
     async validPassword(password, userDb){
@@ -36,16 +48,6 @@ export class UserController {
             throw new Error(err)
         }
     };
-
-    async updateById(id, userData){
-        const updatedUser = await User.update(userData, {
-            where: {
-                id: id
-            }
-        });
-
-        return updatedUser;
-    }
 
     async getUserByEmail(email){
         const userDb = await User.findOne({where: {email: email}});

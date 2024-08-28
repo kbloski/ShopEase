@@ -11,16 +11,13 @@ export class DeliveryController {
 
     async createDelivery (deliveryData, addressDb){
         const deliveryDb = await Delivery.create(deliveryData);
-
         if (addressDb) deliveryDb.setAddress(addressDb);
-
         return deliveryDb;
     };
 
     async setAddress(deliveryDb, addressDb){
         if (!deliveryDb || !addressDb) return;
-
-        await deliveryDb.setAddress(addressDb);
+        await Delivery.update( {address_id: addressDb.id}, {where: {id: deliveryDb.id}});
     };
 
     async deleteById(id){

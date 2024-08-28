@@ -13,16 +13,20 @@ router.get('/:productId/reviews', async (req, res) => {
     const reviews = await reviewController.getAllByProductId(productId);
 
     // Przekształcanie tablicy recenzji w tablicę obietnic
-    const reviewsWithUser = await Promise.all(reviews.map(async review => {
-        if (review.userId){
-            const userDb = await userController.getById(review.userId);
-            delete userDb.dataValues.password;
-            review.dataValues.user = userDb.dataValues;
-        }
-        return review;
+    const reviewsWithUser = await Promise.all(
+        reviews.map(
+            async review => {
+                if (review.user_id){
+                    const userDb = await userController.getById(review.user_id);
+                    delete userDb.dataValues.password;
+                    review.dataValues.user = userDb.dataValues;
+                }
+                return review;
     }));
 
-    res.json( reviews );
+    console.log( reviewsWithUser );
+
+    res.json( reviewsWithUser );
 });
 
 router.post('/add', upload.array('images'), async (req, res) => {

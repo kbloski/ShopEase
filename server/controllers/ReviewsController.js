@@ -10,19 +10,19 @@ export class ReviewController {
     }
 
     async getReviewsByUserId(userId){
-        return await Reviews.findAll( { where: { userId: userId}});
+        return await Reviews.findAll( { where: { user_id: userId}});
     }
 
     async getAllByProductId(productId){
-        return await Reviews.findAll({where: { productId: productId}});
+        return await Reviews.findAll({where: { product_id: productId}});
     };
 
     async setUser(reviewDb, userDb){
-        await this.updateById(reviewDb.id, { userId: userDb.id});
+        await Reviews.updateById(reviewDb.id, { user_id: userDb.id});
     }
 
     async setProduct(reviewDb, productDb){
-        await this.updateById(reviewDb.id, { productId: productDb.id});
+        await Reviews.updateById(reviewDb.id, { product_id: productDb.id});
     }
 
     async createReview (reviewData, userDb, productDb){
@@ -36,7 +36,7 @@ export class ReviewController {
     }
 
     async updateById(id, reviewData){
-        await Reviews.update(reviewData, { where: { id: id}})
+        return await Reviews.update(reviewData, { where: { id: id}})
     }
 
     async deleteById(id){

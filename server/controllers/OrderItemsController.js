@@ -10,7 +10,7 @@ export class OrderItemsController {
     }
 
     async getOrderItemByOrderId( orderId ){
-        return await OrderItems.findOne( {where: {orderId: orderId}})
+        return await OrderItems.findOne( {where: { order_id: orderId}})
     }
 
     async createOrderItem(orderItemData, orderDb, productDb){
@@ -31,21 +31,15 @@ export class OrderItemsController {
     }
 
     async updateQuantity(orderItemDb, quantity){
-        await OrderItems.update(
-            {
-                quantity: quantity
-            },
-            {
-                where: {
-                    id: orderItemDb.id
-                }
-            }
-        )
+        return await OrderItems.update(
+            {quantity: quantity},
+            {where: {id: orderItemDb.id}
+        })
     };
 
     async updateProduct(orderItemDb, productDb){
         orderItemDb.product_price = productDb.price;
-        orderItemDb.productId	= productDb.id;
+        orderItemDb.product_id	= productDb.id;
 
         await OrderItems.update(orderItemDb, { 
             where: { id: orderItemDb.id}
