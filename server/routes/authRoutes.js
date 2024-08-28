@@ -11,9 +11,9 @@ router.post('/login',
     (req, res) => {
         res.statusCode = 200;
 
-        
+        console.log( JSON.stringify( req.user ))
+        if (req.user) {
 
-        if (req?.user) {
             const userData = req.user.dataValues;
             delete userData.password 
             delete userData.createdAt 

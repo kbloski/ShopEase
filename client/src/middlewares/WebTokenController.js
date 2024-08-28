@@ -16,6 +16,15 @@ class WebTokenController
 
         return jwtDecode( token );
     }
+
+    setToken( token ){
+        localStorage.setItem(TOKEN_KEY, token);
+    }
+
+    clearToken(){
+        localStorage.setItem( TOKEN_KEY, '')
+    }
+
 }
 
 const webTokenController = new WebTokenController();

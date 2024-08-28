@@ -2,6 +2,7 @@
 import { TOKEN_KEY, USERAUTH_KEY } from "../../../config/constans.js";
 import { decodedToken } from "../../../utils/tokenDecoded.js";
 import { basicUrl } from '../../../config/store.config.js';
+import { webTokenController } from "../../../middlewares/WebTokenController.js";
 
 
 
@@ -34,10 +35,9 @@ export const handleSubmit = async (event, email, password, navigate) => {
     const data = await response.json();
 
     if (!data.token) {
-      localStorage.setItem(TOKEN_KEY, '');
+      webTokenController.clearToken();
     } else {
-      localStorage.setItem(TOKEN_KEY, data.token);
-      localStorage.setItem(USERAUTH_KEY, decodedToken(data.token));
+      webTokenController.setToken( data.token)
       navigate(basicUrl);
     }
 

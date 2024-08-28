@@ -17,7 +17,5 @@ export function authorizeHeaderToken(req, res, next){
         req.user = {};
     }
 
-    console.log( req.user)
-
     next();
 }
