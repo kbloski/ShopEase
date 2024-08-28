@@ -9,13 +9,9 @@ export class OrderItemsController {
         return await OrderItems.findByPk(id)
     }
 
-    async getAllforOrder(orderDb){
-        return await OrderItems.findAll({
-            while: {
-                orderId: orderDb.id
-            }
-        });
-    };
+    async getOrderItemByOrderId( orderId ){
+        return await OrderItems.findOne( {where: {orderId: orderId}})
+    }
 
     async createOrderItem(orderItemData, orderDb, productDb){
         const orderItemDb = await OrderItems.create(orderItemData);
@@ -28,6 +24,10 @@ export class OrderItemsController {
         }
 
         return orderItemDb;
+    }
+
+    async updateById( id , orderItemData ){
+        return await OrderItems.update( orderItemData , { where: {id: id}})
     }
 
     async updateQuantity(orderItemDb, quantity){

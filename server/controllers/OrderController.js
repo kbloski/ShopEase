@@ -9,8 +9,17 @@ export class OrderController{
         return await Order.findByPk(id);
     };
 
-    
+    async getOrdersByUserId(userId){
+        return await Order.findAll( { where: { userId: userId }});
+    }
 
+    async getOrdersInCartByUserId(userId){
+        return await Order.findAll( { where: 
+            { 
+                userId: userId, 
+                status: 'in_cart'
+            }});
+    }
 
     async createOrder(orderData, userDb){
         const orderDb = await Order.create();
