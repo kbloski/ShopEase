@@ -24,11 +24,22 @@ export default function Navigation(props){
         return ()=> clearInterval( intervalId );
     }, []);
     
-  
+    function logOut(){
+            webTokenController.clearToken();
+    }
+    
 
     return(
-        <nav>
+        <nav className='p-2'>
             <ul>
+                {
+                    webTokenController.getToken() ? (
+                        <li>
+                            <a href='' onClick={ logOut }>Log out</a>
+                        </li>
+                    ) : null
+                }
+
                 { !webTokenController.getToken() && (
                     <div>
                         <li><Link to={ basicUrl+ '/login'}>Login</Link></li>
