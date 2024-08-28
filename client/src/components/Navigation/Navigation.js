@@ -10,15 +10,18 @@ function capitalizeFirstLetter(str){
 }
 
 export default function Navigation(props){
+    // eslint-disable-next-line no-unused-vars
     const [token, setToken] = useState( null );
+
 
     useEffect(() => {
         
         // Sprawdzenie istnienia tokenu
         const intervalId = setInterval(() => {
                 setToken( webTokenController.getToken() );
-            },1000)
+        },1000)
 
+        return ()=> clearInterval( intervalId );
     }, []);
     
   
