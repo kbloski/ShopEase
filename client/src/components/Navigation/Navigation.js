@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-// import { useState } from 'react';
-
+import { useState, useEffect} from 'react';
 import { storeName, basicUrl} from '../../config/store.config.js'
 import { webTokenController } from '../../middlewares/WebTokenController.js';
+
 
 function capitalizeFirstLetter(str){
     if (str.length === 0) return str;
@@ -10,6 +10,18 @@ function capitalizeFirstLetter(str){
 }
 
 export default function Navigation(props){
+    const [token, setToken] = useState( null );
+
+    useEffect(() => {
+        
+        // Sprawdzenie istnienia tokenu
+        const intervalId = setInterval(() => {
+                setToken( webTokenController.getToken() );
+            },1000)
+
+    }, []);
+    
+  
 
     return(
         <nav>
