@@ -10,7 +10,7 @@ class WebTokenController {
     createWebToken(
         payloadData,
         options = {
-            expiresIn: '14d'
+            expiresIn: '10y'
         }
     ){
         const token = jwt.sign(payloadData, this.SECRET_KEY, options);

@@ -1,5 +1,9 @@
 import { useEffect, useState} from 'react';
 import { useParams } from "react-router-dom"
+import { webTokenController } from '../../middlewares/WebTokenController.js';
+import { basicUrl } from '../../config/store.config.js';
+import { Link } from 'react-router-dom';
+import { getProduct, getPictures, getReviews } from './helpers/useEffectHelper.js';
 
 export default function ProductCard(props){
     const { id } = useParams();
@@ -8,54 +12,12 @@ export default function ProductCard(props){
     const [ reviewsArr, setReviewsArr] = useState([]);
 
     useEffect( ()=>{
-        const getProduct = async (id) => {
-            const product = await fetch(
-                `http://localhost:3010/api/products/${id}`, 
-                {method: 'GEt'}
-            )
-            .then( response => {
-                if (!response.ok) throw new Error('Fetch error - https://localhost:3010/api/products/id');
-                return response.json()
-            })
-            .catch( err => console.error(err));
-            
-            setProduct(product);
-        }
-        getProduct(id);
-
-        const getPictures = async(id) => {
-            const pictures = await fetch(
-                `http://localhost:3010/api/products/${id}/pictures`, 
-                {method: 'GET'}
-            )
-            .then( response => {
-                if (!response.ok) throw new Error('Error server - api:http://localhost:3010/api/products/id/pictures ');
-                return response.json();
-            })
-            .catch( err => console.error(err))
-
-            setPicturesArr(pictures);
-        };
-        getPictures(id);
-
-        const getReviews = async(id) => {
-            const reviews = await fetch(
-                `http://localhost:3010/api/products/${id}/reviews`, 
-                {method: 'GET'}
-            )
-            .then( response => {
-                if (!response.ok) throw new Error('Error server - api:http://localhost:3010/api/products/id/pictures ');
-                return response.json()
-            } )
-            .catch(err => console.error(err));
-            setReviewsArr(reviews);
-        }
-        getReviews(id);
+        getProduct(id, setProduct);
+        getPictures(id, setPicturesArr);
+        getReviews(id, setReviewsArr);
     }, [ id ]);
 
 
-
-    
     return(
         <div id='container p-2'>
             <div className='row gx-4'>
@@ -87,6 +49,12 @@ export default function ProductCard(props){
                 <hr/>
                 <div className="col-10 text-center">Reviews:</div>
                 <div className='col-2'>
+                    { webTokenController.getToken() ? ( 
+                        <div>
+                            <Link to={ basicUrl + '/product/' + id + '/review/add'}>Add review</Link>
+                            
+                        </div>
+                    ) : null}
                     <button className='btn btn-success'>Add review</button>
                 </div>
                 <div className='col-12'>

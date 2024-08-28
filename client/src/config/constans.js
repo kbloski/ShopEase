@@ -6,10 +6,10 @@ function initializeLocalStorage(){
 
     if (!localStorage.getItem(USERAUTH_KEY)) localStorage.setItem(USERAUTH_KEY, JSON.stringify({}));
 }
-
 initializeLocalStorage();
 
 export {
     TOKEN_KEY,
-    USERAUTH_KEY
+    USERAUTH_KEY,
+    
 }

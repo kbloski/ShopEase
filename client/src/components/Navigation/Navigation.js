@@ -1,5 +1,8 @@
 import { Link } from 'react-router-dom';
-import storeConfig from '../../config/storeConfig.js'
+// import { useState } from 'react';
+
+import { storeName, basicUrl} from '../../config/store.config.js'
+import { webTokenController } from '../../middlewares/WebTokenController.js';
 
 function capitalizeFirstLetter(str){
     if (str.length === 0) return str;
@@ -7,16 +10,20 @@ function capitalizeFirstLetter(str){
 }
 
 export default function Navigation(props){
-    const { basicUrl, storeName} = storeConfig;
 
     return(
         <nav>
             <ul>
+                { !webTokenController.getToken() && (
+                    <div>
+                        <li><Link to={ basicUrl+ '/login'}>Login</Link></li>
+                        <li><Link to={ basicUrl + '/register'}>Register</Link></li>
+                    </div>
+                ) }
+
                 <li><Link to={ basicUrl }>
                     { capitalizeFirstLetter( storeName.toUpperCase() ) }
                 </Link></li>
-                <li><Link to={ basicUrl+ '/login'}>Login</Link></li>
-                <li><Link to={ basicUrl + '/register'}>Register</Link></li>
                 <li>
                     <Link to={ basicUrl + '/product/add'}>Add product</Link>
                 </li>

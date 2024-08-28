@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import storeConfig from "../../../config/storeConfig";
+import { basicUrl } from "../../../config/store.config";
 
 export default function ListItem(props){
-    const { basicUrl } = storeConfig;
 
     const [pictureUrl, setPictureUrl] = useState('/images/default-product-img.png')
 

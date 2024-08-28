@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import {  handleChange, handleSubmit  } from "./helpers/handleActions.js";
+import { fetchCategories } from "./helpers/useEffectHelper.js";
 
 export default function ProductAdd(props) {
     const [pictures, setPictures] = useState([]);
@@ -10,85 +12,23 @@ export default function ProductAdd(props) {
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
-        const fetchCategories = async () => {
-                await fetch(
-                    "http://localhost:3010/api/categories/all",
-                    { method: 'GET' }
-                )
-                .then( response => {
-                        if (!response.ok) throw new Error('Error fetch categories');
-                        return response.json();
-                    }
-                )
-                .then( data => {
-                    setCategories( data );
-                })
-                .catch(err => console.error('Error fetch categories' , err));
-        };
+        
 
-        fetchCategories();
+        fetchCategories(setCategories);
     }, []);
 
-    const handleChange = (event) => {
-        const { name, value, files } = event.target;
-        if (event.target.type === "file") {
-            setPictures(prevPictures => [...prevPictures, ...Array.from(files)]);
-        } else {
-            switch (name) {
-                case 'name':
-                    setName(value);
-                    break;
-                case 'description':
-                    setDescription(value);
-                    break;
-                case 'price':
-                    setPrice(Number(value));
-                    break;
-                case 'avaible_stock':
-                    setAvailableStock(Number(value));
-                    break;
-                case 'category':
-                    setCategoryId(value);
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
+   
+    const onChange = (event) => handleChange(event, setName, setDescription, setPrice, setAvailableStock, setCategoryId, setPictures);
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
 
-        const formData = new FormData();
-        formData.append('name', name);
-        formData.append('description', description);
-        formData.append('price', price);
-        formData.append('available_stock', available_stock);
-        formData.append('categoryId', categoryId);
-
-        if (pictures.length > 0) pictures.forEach( file => formData.append('images', file) );
-
-        fetch(
-            'http://localhost:3010/api/products/add', 
-            {
-                method: 'POST',
-                body: formData
-            }
-        )
-        .then(response => {
-            if (!response.ok) throw new Error('Error adding product');
-            return response.json();
-        })
-        .catch(err => console.error(err));
-    }
-
+    const onSubmit = (event) => handleSubmit( event, name, description, price, available_stock, categoryId, pictures);
 
 
 
 
     return (
         <div>
-            <form className="m-3 p-2" onSubmit={handleSubmit}>
+            <form className="m-3 p-2" onSubmit={ onSubmit }>
                 <div className="productPictures">
                     <label className="form-label">Add photos</label>
                     <input
@@ -96,7 +36,7 @@ export default function ProductAdd(props) {
                         className="form-control product-image"
                         name="photo"
                         accept="image/*"
-                        onChange={handleChange}
+                        onChange={ onChange }
                         multiple
                     />
                 </div>
@@ -108,7 +48,7 @@ export default function ProductAdd(props) {
                         className="form-control"
                         id="nameControl"
                         name="name"
-                        onChange={handleChange}
+                        onChange={ onChange }
                     />
                 </div>
                 <div>
@@ -117,7 +57,7 @@ export default function ProductAdd(props) {
                         className="form-control"
                         id="descriptionControl"
                         name="description"
-                        onChange={handleChange}
+                        onChange={ onChange }
                     />
                 </div>
                 <div>
@@ -127,7 +67,7 @@ export default function ProductAdd(props) {
                         className="form-control"
                         id="priceControl"
                         name='price'
-                        onChange={handleChange}
+                        onChange={ onChange }
                     />
                 </div>
                 <div>
@@ -137,7 +77,7 @@ export default function ProductAdd(props) {
                         className="form-control"
                         id="stockControl"
                         name='avaible_stock'
-                        onChange={handleChange}
+                        onChange={ onChange }
                     />
                 </div>
                 <div>
@@ -146,7 +86,7 @@ export default function ProductAdd(props) {
                         name="category"
                         id="categoryControl"
                         className="form-control"
-                        onChange={handleChange}
+                        onChange={ onChange }
                     >
                         <option value="">-</option>
                         {categories.map(category => (

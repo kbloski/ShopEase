@@ -1,10 +1,11 @@
 import { Component } from "react";
 
 export default class HomePage extends Component{
-    constructor(props){
-        super(props);
+    // constructor(props){
+        // super(props);
 
-    }
+        // this.state = [3];
+    // }
 
     render(){
         return (
