@@ -12,30 +12,30 @@ function capitalizeFirstLetter(str){
 export default function Navigation(props){
     // eslint-disable-next-line no-unused-vars
     const [token, setToken] = useState( null );
-
-
+    
+    
     useEffect(() => {
         
         // Sprawdzenie istnienia tokenu
         const intervalId = setInterval(() => {
-                setToken( webTokenController.getToken() );
+            setToken( webTokenController.getToken() );
         },1000)
-
+        
         return ()=> clearInterval( intervalId );
     }, []);
     
     function logOut(){
-            webTokenController.clearToken();
+        webTokenController.clearToken();
     }
     
-
+    
     return(
         <nav className='p-2'>
             <ul>
                 {
                     webTokenController.getToken() ? (
                         <li>
-                            <a href='' onClick={ logOut }>Log out</a>
+                            <button onClick={ logOut }>Log out</button>
                         </li>
                     ) : null
                 }
