@@ -1,6 +1,6 @@
 import { webTokenManager } from "../utility/tokenManager.js";
 
-export function authorizeToken(req, res, next){
+export function authorizeHeaderToken(req, res, next){
     const authHeader = req?.headers['authorization'];
 
     if ( authHeader ){

@@ -4,7 +4,7 @@ import path from 'path';
 import { categoryController, productController, pictureController, reviewController, userController } from './controllers/controllers.js';
 
 import registerRoutes from './index.js';
-import { authorizeToken } from './middlewares/authorizedToken.js';
+import { authorizeHeaderToken } from './middlewares/authorizedHeaderToken.js';
 
 const app = express();
 
@@ -19,11 +19,9 @@ app.use(cors({
 
 app.use(express.json());
 app.use(express.static('./public'));
-app.use( authorizeToken );
-
+app.use( authorizeHeaderToken );
 
 registerRoutes(app);
-
 
 app.get('/', (req,res)=>{
     res.setHeader('Content-Type', 'application/json');
