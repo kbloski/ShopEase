@@ -9,23 +9,30 @@ export class ReviewController {
         return await Reviews.findByPk(id);
     }
 
+    async getReviewsByUserId(userId){
+        return await Reviews.findAll( { where: { userId: userId}});
+    }
+
     async getAllByProductId(productId){
-        return await Reviews.findAll({where: { productId: productId}})
+        return await Reviews.findAll({where: { productId: productId}});
     };
 
     async setUser(reviewDb, userDb){
-        await reviewDb.setUser(userDb)
+        await this.updateById(reviewDb.id, { userId: userDb.id});
     }
 
     async setProduct(reviewDb, productDb){
-        await reviewDb.setProduct(productDb)
+        await this.updateById(reviewDb.id, { productId: productDb.id});
     }
 
     async createReview (reviewData, userDb, productDb){
-        const reviewDb = await Reviews.create(reviewData);
+        
+        const reviewDb = await Reviews.create( reviewData );
 
         if (userDb) await  reviewDb.setUser(userDb);
         if (productDb) await reviewDb.setProduct(productDb);
+
+        return reviewDb;
     }
 
     async updateById(id, reviewData){

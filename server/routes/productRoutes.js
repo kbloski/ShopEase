@@ -22,9 +22,6 @@ router.get('/:productId/reviews', async (req, res) => {
         return review;
     }));
 
-    // const userDb = await userController.getById( reviews)
-    console.log( reviewsWithUser )
-
     res.json( reviews );
 });
 

@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { webTokenController} from '../utility/auth.js';
+import { webTokenManager } from '../utility/tokenManager.js';
 import { registerUser} from '../middlewares/register.js';
 import { userLogin } from '../middlewares/login.js';
 
@@ -19,7 +19,7 @@ router.post('/login',
             delete userData.createdAt 
             delete userData.updatedAt 
 
-            const token = webTokenController.createWebToken( userData )    
+            const token = webTokenManager.createWebToken( userData )    
 
             res.json( {
                 getToken: true,

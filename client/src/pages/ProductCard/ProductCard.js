@@ -51,11 +51,12 @@ export default function ProductCard(props){
                 <div className='col-2'>
                     { webTokenController.getToken() ? ( 
                         <div>
-                            <Link to={ basicUrl + '/product/' + id + '/review/add'}>Add review</Link>
-                            
+                            <Link to={ basicUrl + '/product/' + id + '/review/add'}>
+                                <button className='btn btn-success'>Add review</button>
+                            </Link>
                         </div>
                     ) : null}
-                    <button className='btn btn-success'>Add review</button>
+                    
                 </div>
                 <div className='col-12'>
                     { reviewsArr.map( review => {

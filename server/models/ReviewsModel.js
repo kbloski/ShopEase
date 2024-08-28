@@ -13,12 +13,12 @@ const Reviews = sequelize.define('Reviews', {
     },
 
     rating: {
-        type: DataTypes.DECIMAL(1,1),
+        type: DataTypes.DECIMAL(2,1),
         allowNull: false,
         validate: {
             isDecimal: true,
             min: 0,
-            max: 6
+            max: 5
         }
     },
 
@@ -31,6 +31,7 @@ const Reviews = sequelize.define('Reviews', {
 
     }
 })
+
 
 export {
     Reviews
