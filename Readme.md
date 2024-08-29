@@ -3,3 +3,4 @@ Projekt sklepu internetowego -
 - projekt dev -
 - prepareDatabase - plik tworzący bazę danych
 - mysqli and sequelize use - 
+- projekt tworzony bardziej od strony backend niż frontend - 
