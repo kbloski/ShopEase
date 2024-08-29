@@ -1,4 +1,5 @@
 import { userController } from "../controllers/controllers.js";
+import { sendError } from "../utility/errorUtils.js";
 import { webTokenManager } from "../utility/tokenManager.js";
 
 export async  function authorizeHeaderToken(req, res, next){
@@ -7,18 +8,24 @@ export async  function authorizeHeaderToken(req, res, next){
     
         if ( authHeader ){
             const token = authHeader.split(" ")[1];
-            if (!token) res.status(401).json({msg: '401 Unauthorized', created: false});
             
             const tokenData = webTokenManager.verifyWebToken( token );
-            
+
+            if(!tokenData.valid) { 
+                req.user = null;
+                return next();
+            }
+
             const userDb = await userController.getById( tokenData.decoded.id )
-    
             req.user = userDb;
         } else {
             req.user = null;
         }
+
+        return next();
     } catch (err){
-        console.error(err)
+        console.error(err);
+        sendError( req, res, 500, '500 Internal Server Error');
     }
-    next();
+    
 }

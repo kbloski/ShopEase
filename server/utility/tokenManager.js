@@ -18,7 +18,7 @@ class WebTokenManager {
     };
 
     verifyWebToken(token){
-        if (!token) return false;
+        if (!token) return { valid: false };
 
         try {
             const decoded = jwt.verify( token, this.SECRET_KEY);

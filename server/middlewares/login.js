@@ -28,7 +28,7 @@ const userLogin = async (req, res, next) => {
     } catch (err){
         sendError( req, res, 400, '500 Internal Server Error');
     }
-    next();
+    return next();
 };
 
 export {

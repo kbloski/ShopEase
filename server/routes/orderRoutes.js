@@ -10,10 +10,12 @@ const router = express.Router();
 router.post('/item/add', async (req, res) => {
     const transaction = await sequelize.transaction()
     try{
+        
         if (!req.user){
             await transaction.rollback();
             return sendError(req, res, 401, '401 Unauthorized');  
         }
+
         if (!isIntegerString(req.body.productId)){
            await transaction.rollback();
            return sendError(req, res, 400, '400 Bad Request: Bad product Id'); 
