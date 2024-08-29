@@ -5,16 +5,18 @@ import { sendError, sendSuccess } from "../utility/errorUtils.js";
 const userLogin = async (req, res, next) => {
 
     try {
-        let { email, password } = req.body;
-        email = email.trim();
-        password = password.trim();
 
-        if (!email){
-            sendError(req, res, 400, '400 Bad Request: Email has no value. Please provide email. ');
+        const loginData = req.body;
+        
+        if ( loginData.email) loginData.email = loginData.email.trim();
+        if ( loginData.password) loginData.password = loginData.password.trim();
+
+        if (!loginData.email){
+            return sendError(req, res, 400, '400 Bad Request: Email has no value. Please provide email. ');
         }
 
-        if (!password){
-            sendError(req, res, 400, '400 Bad Request: Password has no value. Please provide password. ');
+        if (!loginData.password){
+            return sendError(req, res, 400, '400 Bad Request: Password has no value. Please provide password. ');
         }
         
         const userDb = await userController.getUserByEmail(req.body.email);
@@ -25,10 +27,11 @@ const userLogin = async (req, res, next) => {
         } else {
             req.user = null
         }
+
+        return next();
     } catch (err){
-        sendError( req, res, 400, '500 Internal Server Error');
+        sendError( req, res, 500, '500 Internal Server Error');
     }
-    return next();
 };
 
 export {
