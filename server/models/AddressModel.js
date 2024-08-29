@@ -12,10 +12,10 @@ const Address = sequelize.define('Address', {
         }
     },
     street: {
-        type: DataTypes.STRING(128),
+        type: DataTypes.STRING(64),
         allowNull: false,
         validate: {
-            len: [0,128]
+            len: [3,64]
         }
     },
     house_number: {
@@ -26,17 +26,17 @@ const Address = sequelize.define('Address', {
         }
     },
     city: {
-        type: DataTypes.STRING(128),
+        type: DataTypes.STRING(64),
         allowNull: false,
         validate: {
-            len: [0,128]
+            len: [3,64]
         }
     },
     state: {
-        type: DataTypes.STRING(128),
+        type: DataTypes.STRING(64),
         allowNull: true,
         validate: {
-            len: [0,128]
+            len: [0,64]
         }
     },
     postal_code: {
@@ -48,10 +48,10 @@ const Address = sequelize.define('Address', {
     },
 
     country: {
-        type: DataTypes.STRING(128),
+        type: DataTypes.STRING(64),
         allowNull: false,
         validate: {
-            len: [0,128]
+            len: [0,64]
         }
     },
     

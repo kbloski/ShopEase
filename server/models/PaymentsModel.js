@@ -13,7 +13,7 @@ const Payments = sequelize.define('Payments', {
         type: DataTypes.STRING(32),
         allowNull: false,
         validate: {
-            len: [0,32]
+            len: [2,32]
         }
     },
     amount: {

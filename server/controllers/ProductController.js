@@ -33,7 +33,7 @@ export class ProductController {
     };
 
     async setCategory(productDb, categoryDb){
-        await Product.updateById( productDb.id , {category_id: categoryDb.id} );
+        await this.updateById( productDb.id , {category_id: categoryDb.id} );
     }
 
     async deleteById(id){

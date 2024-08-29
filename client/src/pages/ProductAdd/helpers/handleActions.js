@@ -24,7 +24,7 @@ export const handleChange = (
                 case 'avaible_stock':
                     setAvailableStock(Number(value));
                     break;
-                case 'category':
+                case 'category_id':
                     setCategoryId(value);
                     break;
                 default:
@@ -55,8 +55,11 @@ export const handleSubmit = (event, name, description, price, available_stock, c
             body: formData
         }
     )
-    .then(response => {
-        if (!response.ok) throw new Error('Error adding product');
+    .then(async response => {
+        if (!response.ok) {
+            const errData = await response.json();
+            throw new Error(`Error ${response.status}: ${errData.msg}`)
+        };
         return response.json();
     })
     .catch(err => console.error(err));

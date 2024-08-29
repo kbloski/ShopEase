@@ -83,7 +83,7 @@ export default function ProductAdd(props) {
                 <div>
                     <label htmlFor="categoryControl" className="form-label">Category</label>
                     <select
-                        name="category"
+                        name="category_id"
                         id="categoryControl"
                         className="form-control"
                         onChange={ onChange }

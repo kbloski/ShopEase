@@ -1,19 +1,25 @@
 import express from 'express';
 import { pictureController } from '../controllers/controllers.js';
 import path from 'path';
+import { isNumberObject } from 'util/types';
+import { isIntegerString } from '../utility/validate.js';
 
 const router = express.Router();
 
 
 router.get('/:id', async (req, res) => {
-    const { id } = req.params;
-    if (!id) res.status(500).json( { msg: 'Don\t have id for picture'} );
-    
-    const picture = await pictureController.getById(id);
-    let filePath = picture.url;
-    
+    try {
+        const { id } = req.params;
+        if (!isIntegerString(id) )  return sendError(req, res, 400, '400 Bad Request: Bad picture id'); 
 
-    res.sendFile( path.resolve( filePath) );
+        const picture = await pictureController.getById(id);
+        if (!picture) return sendError(req, res, 404, '404 Not found: Picture don\'t exist in database'); 
+
+        res.sendFile( path.resolve( picture.url) );
+    } catch (err){
+        console.error(err);
+        sendError(req, res, 500, '500 internal server error');        
+    }
 });
 
 

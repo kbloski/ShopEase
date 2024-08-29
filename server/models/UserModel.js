@@ -26,7 +26,7 @@ const User = sequelize.define('User', {
         // unique: true,
         validate: {
             isEmail: true,
-            len: [0, 128],
+            len: [5, 128],
             // isUnique: function(value){
                 
             // }
@@ -63,24 +63,25 @@ const User = sequelize.define('User', {
     },
 
     name: {
-        type: DataTypes.STRING(16),
+        type: DataTypes.STRING(64),
         allowNull: false,
         validate: {
-            len: [2,16]
+            len: [2,64]
         }
     },
     surname: {
-        type: DataTypes.STRING(32),
+        type: DataTypes.STRING(64),
         allowNull: false,
         validate: {
-            len: [2,32]
+            len: [2,64]
         }
     },
     age: {
         type: DataTypes.TINYINT.UNSIGNED,
         allowNull: true,
         validate: {
-            min: 18
+            min: 18,
+            max: 140
         }
     },
     phone: {

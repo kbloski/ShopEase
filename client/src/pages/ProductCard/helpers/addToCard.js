@@ -24,8 +24,11 @@ export function addToCard(event,){
             })
         }
     )
-    .then( response => {
-        if ( !response.ok) throw new Error('Error order add')
+    .then( async response => {
+        if ( !response.ok) {
+            const errData = await response.json();
+            throw new Error(errData.msg);
+        }
         return response.json()
     })
     .then(
@@ -33,6 +36,6 @@ export function addToCard(event,){
             console.log( data );
         }
     )
-    .catch( err => console.error(err) );
+    .catch( err => console.error(err.message) );
 
 }

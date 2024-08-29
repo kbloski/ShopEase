@@ -13,9 +13,9 @@ const Product = sequelize.define('Product', {
     },
 
     name: {
-        type: DataTypes.STRING(64),
+        type: DataTypes.STRING(32),
         allowNull: false,
-        validate: { len: [1,64]}
+        validate: { len: [2,32]}
     },
 
     description: {
@@ -27,6 +27,7 @@ const Product = sequelize.define('Product', {
         type: DataTypes.DECIMAL(7,2),
         allowNull: false,
         validate: {
+            min: 1,
             isDecimal: true
         }
     },

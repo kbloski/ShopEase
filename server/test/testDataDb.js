@@ -22,14 +22,14 @@ const admindb = await userController.createUser({
     surname: 'admin'
 });
 
-const client1 = await userController.createUser({
-    email: 'client1@example.com',
-        password: 'test',
-        name: 'client1',
-        surname: 'client1',
-        phone: 111111111,
-        age: 18
-})
+// const client1 = await userController.createUser({
+//     email: 'client1@example.com',
+//         password: 'test',
+//         name: 'client1',
+//         surname: 'client1',
+//         phone: 111111111,
+//         age: 18
+// })
 
 // const client2 = await userController.createUser({
 //     email: 'client1@example.com',
@@ -62,18 +62,18 @@ const client1 = await userController.createUser({
 // await userController.updateAddress(client1, address1); 
 
 
-const category1 = await categoryController.createCategory({
-    name: 'Kategoria 1',
-    description: 'Opis kategori 1'
-})
+// const category1 = await categoryController.createCategory({
+//     name: 'Kategoria 1',
+//     description: 'Opis kategori 1'
+// })
 
 
-const product1 = await productController.createProduct({
-    name: 'Filiżanka',
-    price: '13.99',
-    description: 'Opis szklanki za marne grosze',
-    available_stock: 33,
-}, category1);
+// const product1 = await productController.createProduct({
+//     name: 'Filiżanka',
+//     price: '13.99',
+//     description: 'Opis szklanki za marne grosze',
+//     available_stock: 33,
+// }, category1);
 // await productController.updateById(product1.id, {
 //     name: 'Szklanka'
 // })
@@ -111,10 +111,10 @@ const product1 = await productController.createProduct({
 //     amount: 333.12
 // }, order1)
 
-const review1 = await Reviews.create({
-    rating: 4.5,
-    description: 'Super produkt'
-}) 
+// const review1 = await Reviews.create({
+//     rating: 4.5,
+//     description: 'Super produkt'
+// }) 
 
 // const review1 = await Reviews.create({
 //     rating: 3.0,

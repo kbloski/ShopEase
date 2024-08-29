@@ -11,21 +11,21 @@ export const handleSubmit = async (event, formData) => {
     if (!email || !password || !name || !surname) return false;
 
     try {
-        const response = await fetch('http://localhost:3010/api/register', {
+        await fetch('http://localhost:3010/api/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(formData),
-        });
+        })
+        .then( response => {
+            if (!response.ok) throw new Error("Can't register user");
+            return response.json();
+        })
+        .then( data => console.log( data ) )
+        .catch( err => console.error(err ));
+        
 
-        if (!response.ok) {
-            console.error('Can\'t register user');
-            return;
-        }
-
-        const data = await response.json();
-        console.log(data);
 
     } catch (err) {
         console.error('Error:', err);

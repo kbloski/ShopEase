@@ -58,7 +58,7 @@ const Delivery = sequelize.define('Delivery', {
     },
 
     tracking_number: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(128),
         allowNull: true
     }
 })
