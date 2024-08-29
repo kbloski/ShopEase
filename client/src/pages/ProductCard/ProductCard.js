@@ -1,11 +1,11 @@
 import { useEffect, useState} from 'react';
 import { useParams } from "react-router-dom"
-import { webTokenController } from '../../middlewares/WebTokenController.js';
+import { webTokenManager } from '../../utils/WebTokenManager.js';
 import { basicUrl } from '../../config/store.config.js';
 import { Link } from 'react-router-dom';
 import { getProduct, getPictures, getReviews } from './helpers/useEffectHelper.js';
 import { addToCard } from './helpers/addToCard.js';
-import { handleChange } from '../ReviewAdd/helpers/handleActions.js';
+import handleInputChange from '../../utils/formHandlers.js';
 
 export default function ProductCard(props){
     const { id } = useParams();
@@ -38,7 +38,7 @@ export default function ProductCard(props){
                             <form onSubmit={ addToCard }>
                                 <div>
                                     <input type='number' hidden name='productId' defaultValue={product.id || ''} />
-                                    <input type='number' name='quantity' min='1' max={ product.available_stock } value={quantity} onChange={ event => handleChange(event, setQuantity)}/>
+                                    <input type='number' name='quantity' min='1' max={ product.available_stock } value={quantity} onChange={ event => handleInputChange(event, setQuantity)}/>
                                 </div>
                                 <button className="btn btn-primary" type='submit' disabled={ product.available_stock ? false : true } >
                                     Add to card
@@ -58,7 +58,7 @@ export default function ProductCard(props){
                 <hr/>
                 <div className="col-10 text-center">Reviews:</div>
                 <div className='col-2'>
-                    { webTokenController.getToken() ? ( 
+                    { webTokenManager.getToken() ? ( 
                         <div>
                             <Link to={ basicUrl + '/product/' + id + '/review/add'}>
                                 <button className='btn btn-success'>Add review</button>

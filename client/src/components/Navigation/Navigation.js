@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect} from 'react';
 import { storeName, basicUrl} from '../../config/store.config.js'
-import { webTokenController } from '../../middlewares/WebTokenController.js';
+import { webTokenManager } from '../../utils/WebTokenManager.js';
 
 
 function capitalizeFirstLetter(str){
@@ -18,14 +18,14 @@ export default function Navigation(props){
         
         // Sprawdzenie istnienia tokenu
         const intervalId = setInterval(() => {
-            setToken( webTokenController.getToken() );
+            setToken( webTokenManager.getToken() );
         },1000)
         
         return ()=> clearInterval( intervalId );
     }, []);
     
     function logOut(){
-        webTokenController.clearToken();
+        webTokenManager.clearToken();
     }
     
     
@@ -33,28 +33,32 @@ export default function Navigation(props){
         <nav className='p-2'>
             <ul>
                 {
-                    webTokenController.getToken() ? (
+                    webTokenManager.getToken() ? (
                         <li>
                             <button onClick={ logOut }>Log out</button>
                         </li>
                     ) : null
                 }
 
-                { !webTokenController.getToken() && (
+                { !webTokenManager.getToken() && (
                     <div>
                         <li><Link to={ basicUrl+ '/login'}>Login</Link></li>
                         <li><Link to={ basicUrl + '/register'}>Register</Link></li>
                     </div>
-                ) }
-
+                    ) 
+                }
                 <li><Link to={ basicUrl }>
                     { capitalizeFirstLetter( storeName.toUpperCase() ) }
-                </Link></li>
+                </Link>
+                </li>
                 <li>
                     <Link to={ basicUrl + '/product/add'}>Add product</Link>
                 </li>
                 <li>
                     <Link to={basicUrl + '/store'}>Store</Link>
+                </li>
+                <li>
+                    <Link to={basicUrl + '/cart'} >Cart</Link>
                 </li>
             </ul>
         </nav>

@@ -1,21 +1,21 @@
 // src/pages/Login.jsx
 import { useState } from "react";
+import handleInputChange from "../../utils/formHandlers.js";
+import { loginSubmit } from "./helpers/loginSubmit.js";
 import { useNavigate } from 'react-router-dom';
-import { handleChange, handleSubmit } from "./helpers/handleActions.js";
 
 export default function Login(props) {
-  const navigate = useNavigate(); // get navigate here
+  const navigate = useNavigate(); 
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const onChange = event => handleChange(event, setEmail, setPassword);
-
-  const onSubmit = event => handleSubmit(event, email, password, navigate); // pass navigate as argument
+  const onSubmit = event => loginSubmit(event, { email: email, password: password}, navigate )
 
   return (
     <div>
       <h1>Login page</h1>
-      <form className="p-2" onSubmit={onSubmit}>
+      <form className="p-2" onSubmit={ onSubmit }>
         <div>
           <label htmlFor="emailControl" className="form-label">Email</label>
           <input
@@ -23,7 +23,7 @@ export default function Login(props) {
             name="email"
             id="emailControl"
             className="form-control"
-            onChange={onChange}
+            onChange={ event => handleInputChange(event, setEmail) }
             required
           />
         </div>
@@ -34,7 +34,7 @@ export default function Login(props) {
             name="password"
             id="passwordControl"
             className="form-control"
-            onChange={onChange}
+            onChange={ event => handleInputChange(event, setPassword) }
             required
           />
         </div>

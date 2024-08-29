@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { handleChange, handleSubmit } from "./helpers/handleActions.js";
+import { handleChange } from "./helpers/handleOnChange.js";
+import { submitRegister } from "./helpers/submitRegister.js";
 
 export default class Register extends Component {
     constructor(props) {
@@ -18,7 +19,7 @@ export default class Register extends Component {
     render() {
         return (
             <div>
-                <form className='p-2' onSubmit={event => handleSubmit(event, this.state)}>
+                <form className='p-2' onSubmit={event => submitRegister(event, this.state)}>
                     <div className="p-2">
                         <label htmlFor="emailControl" className="form-label">Email</label>
                         <input

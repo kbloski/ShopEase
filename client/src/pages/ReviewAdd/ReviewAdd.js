@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import { handleSubmit, handleChange } from "./helpers/handleActions.js";
+import { submitReviewAdd } from "./helpers/submitAddReview";
+import handleInputChange from "../../utils/formHandlers";
 
 export default function ReviewAdd(props) 
 {
@@ -14,7 +15,7 @@ export default function ReviewAdd(props)
             <div className="msg">
 
             </div>
-            <form onSubmit={ event => handleSubmit(
+            <form onSubmit={ event => submitReviewAdd(
                 event, 
                 {
                     rating: rating, 
@@ -23,9 +24,9 @@ export default function ReviewAdd(props)
                 productId
             )}>
                 <label htmlFor="ratingControl">Rating</label>
-                <input className="form-control" type="number" name="rating" id='ratingControl'  min='0' max='5' required onChange={event => handleChange(event, setRating)}/>
+                <input className="form-control" type="number" name="rating" id='ratingControl'  min='0' max='5' required onChange={event => handleInputChange(event, setRating)}/>
                 <label htmlFor='textareaControl' className="form-label">Description</label>
-                <textarea className="form-control" id="textareaControl" name="description" rows="1" cols="50" onChange={event => handleChange(event, setDescription)}></textarea>
+                <textarea className="form-control" id="textareaControl" name="description" rows="1" cols="50" onChange={event => handleInputChange(event, setDescription)}></textarea>
                 <button className="btn btn-primary" type="submit">Add</button>
             </form>  
         </div>

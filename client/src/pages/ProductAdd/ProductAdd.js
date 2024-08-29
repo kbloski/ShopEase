@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
-import {  handleChange, handleSubmit  } from "./helpers/handleActions.js";
 import { fetchCategories } from "./helpers/useEffectHelper.js";
+import handleInputChange from "../../utils/formHandlers.js";
+import { handlePicture } from "./helpers/handlePicture.js";
+import { addProduct } from "./helpers/addProduct.js";
+
 
 export default function ProductAdd(props) {
     const [pictures, setPictures] = useState([]);
@@ -12,19 +15,16 @@ export default function ProductAdd(props) {
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
-        
-
         fetchCategories(setCategories);
     }, []);
 
-   
-    const onChange = (event) => handleChange(event, setName, setDescription, setPrice, setAvailableStock, setCategoryId, setPictures);
-
-
-    const onSubmit = (event) => handleSubmit( event, name, description, price, available_stock, category_id, pictures);
-
-
-
+    const onSubmit = (event) => addProduct( event, 
+        {
+            name, description, 
+            price, available_stock, 
+            category_id, pictures
+        }
+    );
 
     return (
         <div>
@@ -36,7 +36,7 @@ export default function ProductAdd(props) {
                         className="form-control product-image"
                         name="photo"
                         accept="image/*"
-                        onChange={ onChange }
+                        onChange={ event => handlePicture(event, setPictures) }
                         multiple
                     />
                 </div>
@@ -48,7 +48,7 @@ export default function ProductAdd(props) {
                         className="form-control"
                         id="nameControl"
                         name="name"
-                        onChange={ onChange }
+                        onChange={ event => handleInputChange(event, setName) }
                     />
                 </div>
                 <div>
@@ -57,7 +57,7 @@ export default function ProductAdd(props) {
                         className="form-control"
                         id="descriptionControl"
                         name="description"
-                        onChange={ onChange }
+                        onChange={ event => handleInputChange(event, setDescription) }
                     />
                 </div>
                 <div>
@@ -67,7 +67,7 @@ export default function ProductAdd(props) {
                         className="form-control"
                         id="priceControl"
                         name='price'
-                        onChange={ onChange }
+                        onChange={ event => handleInputChange(event, setPrice) }
                     />
                 </div>
                 <div>
@@ -77,7 +77,7 @@ export default function ProductAdd(props) {
                         className="form-control"
                         id="stockControl"
                         name='avaible_stock'
-                        onChange={ onChange }
+                        onChange={ event => handleInputChange(event, setAvailableStock) }
                     />
                 </div>
                 <div>
@@ -86,7 +86,7 @@ export default function ProductAdd(props) {
                         name="category_id"
                         id="categoryControl"
                         className="form-control"
-                        onChange={ onChange }
+                        onChange={ event => handleInputChange(event, setCategoryId) }
                     >
                         <option value="">-</option>
                         {categories.map(category => (

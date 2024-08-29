@@ -1,4 +1,4 @@
-import { webTokenController } from "../../../middlewares/WebTokenController.js";
+import { webTokenManager } from "../../../utils/WebTokenManager.js";
 
 export function addToCard(event,){
     event.preventDefault();
@@ -9,7 +9,7 @@ export function addToCard(event,){
     const quantity = form.querySelector('input[name="quantity"]').value;
     
 
-    const token = webTokenController.getToken();
+    const token = webTokenManager.getToken();
     fetch( 
         'http://localhost:3010/api/order/item/add',
         {

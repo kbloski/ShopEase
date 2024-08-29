@@ -1,9 +1,5 @@
-export const handleChange = (event, context) => {
-    const { name, value } = event.target;
-    context.setState({ [name]: value });
-};
 
-export const handleSubmit = async (event, formData) => {
+export const submitRegister = async (event, formData) => {
     event.preventDefault();
 
     const { email, password, name, surname } = formData;

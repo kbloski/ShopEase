@@ -12,6 +12,7 @@ import ProductAdd from './pages/ProductAdd/ProductAdd.js';
 import Store from './pages/Store/Store.js';
 import ProductCard from './pages/ProductCard/ProductCard.js';
 import ReviewAdd from './pages/ReviewAdd/ReviewAdd.js';
+import Cart from './pages/Cart/Cart.js';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
             <Route path= { basicUrl + '/product/:id/card'} element={<ProductCard />}/>
             <Route path= { basicUrl + '/product/:id/card'} element={<ProductCard />}/>
             <Route path= { basicUrl  + '/product/:id/review/add' } element={ <ReviewAdd />} />
+            <Route path= {basicUrl + '/cart'} element={ <Cart /> } />
           </Routes>
     </div>
   );

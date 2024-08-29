@@ -1,11 +1,7 @@
-import { webTokenController } from "../../../middlewares/WebTokenController.js";
+import { webTokenManager } from "../../../utils/WebTokenManager.js";
 
-export function handleChange(event, setStateFunction)
-{
-    setStateFunction( event.target.value );
-}
 
-export function handleSubmit(
+export function submitReviewAdd(
     event,
     formData,
     productId
@@ -13,7 +9,7 @@ export function handleSubmit(
 {
     event.preventDefault();
 
-    const token = webTokenController.getToken();
+    const token = webTokenManager.getToken();
     fetch(
         `http://localhost:3010/api/reviews/add-to-product/${productId}`,
         {
