@@ -9,7 +9,7 @@ class WebTokenManager
         return localStorage.getItem(TOKEN_KEY);
     }
 
-    getTokenData()
+    getTokenDecoded()
     {
         const token = localStorage.getItem(TOKEN_KEY);
         if (!token) return { valid: false , message: 'No token found'};
