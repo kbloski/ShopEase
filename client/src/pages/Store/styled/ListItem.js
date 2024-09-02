@@ -32,7 +32,7 @@ export default function ListItem(props){
                         <h4>{props.product.price} zł</h4>
                     </div>
                     <div>
-                        <button className="btn btn-primary disabled" >Add to card</button>
+                        {/* <button className="btn btn-primary disabled" >Add to card</button> */}
                     </div>
                 </div>
             </Link>
