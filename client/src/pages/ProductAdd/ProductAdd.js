@@ -62,7 +62,7 @@ export default function ProductAdd(props) {
                 <div>
                     <label htmlFor="priceControl" className="form-label">Price</label>
                     <input
-                        type="number"
+                        type="text"
                         className="form-control"
                         id="priceControl"
                         name='price'
