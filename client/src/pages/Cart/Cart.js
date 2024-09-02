@@ -7,6 +7,7 @@ import { ListItem } from "./styled/ListItem.js";
 
 export default function Cart(props){
     const userToken = webTokenManager.getToken();
+
     const [priceSummary, setPriceSummary] = useState(0);
     const [orders, setOrders] = useState( [] );
 
@@ -22,21 +23,33 @@ export default function Cart(props){
             const quantity = Number(order.orderItem.quantity)
             return total + ( productPrice * quantity); 
         }
-            , 0);
+        , 0);
+
 
         setPriceSummary( newPriceSummary.toFixed(2) );
     }, [orders])
 
     const updateOrder = (id, updateData) => {
-        setOrders( prevOrders => prevOrders.map( order => {
-            return order.id === id ? { ...order, ...updateData} : order
-        }))
+        setOrders( prevOrders => prevOrders.map( order => order.id === id ? { ...order, ...updateData} : order
+        ))
     }
 
     const removeOrder = (id) => {
         setOrders( prevOrders => prevOrders.filter( order => order.id !== id));
     };
 
+
+
+
+    
+    if (!userToken) {
+        return (
+            <div className="container">
+                <h1>You must log in to view the cart.</h1>
+            </div>
+        );
+    };
+    
     return (
         <div className="container p-2">
             <div className="row">
@@ -45,7 +58,7 @@ export default function Cart(props){
                     <section id="orders">
                         <ul className="list-group list-group-flush">
                             { orders.map( (order, index) => {
-                                return <ListItem key={order.id} order={order} onRemoveOrder={removeOrder} />
+                                return <ListItem key={order.id} order={order} onRemoveOrder={removeOrder} onUpdateOrder={updateOrder} />
                             })}
                         </ul>
                     </section>

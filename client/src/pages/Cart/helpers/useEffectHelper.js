@@ -20,5 +20,5 @@ export async function getOrders( token , setOrders ){
     })
     .catch(err => console.error (err));
 
-    setOrders( result.orders );
+    if ( result ) setOrders( result.orders );
 }
