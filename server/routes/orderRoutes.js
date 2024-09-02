@@ -6,32 +6,71 @@ import { sendError, sendSuccess } from '../utility/errorUtils.js';
 
 const router = express.Router();
 
-router.get( '/user/cart', async (req, res) => {
-    if (!req.user) return sendError(req, res, 401, 'Unauthorized');
+router.delete('/:id', async (req, res) => {
+    const transaction = await sequelize.transaction();
+    try {
 
-    // console.log( req.user.id )
-    const ordersDb = await orderController.getOrdersInCartByUserId( req.user.id);
-
-    const updateOrdersItem = await Promise.all( 
-        ordersDb.map( async (value) => {
-            const orderItem = await orderItemsController.getOrderItemByOrderId( value.id );
-            return {...value.dataValues, orderItem:  orderItem.dataValues }
-        })
-    );
-
-    const updateProducts = await Promise.all(
-        updateOrdersItem.map( async (order) =>{
-            const productDb = await productController.getById( order.orderItem.product_id);
-            return {...order, product: productDb.dataValues};
-        })
-    )
-
-    sendSuccess( req, res, 200, { 
-        msg: '',
-        data: { 
-            orders: updateProducts
+        if (!req.user){
+            await transaction.rollback();
+            return sendError( req, res, 401, '401 Unauthorized');
         }
-    });
+
+        const {id} = req.params;
+        console.log( id )
+        if (!id || !isIntegerString(id)){
+            await transaction.rollback();
+            return sendError(req, res, 400, 'Bad request: Invalid order id');
+        }
+
+        const orderDb = await orderController.getById(id);
+        const orderItemDb = await orderItemsController.getOrderItemByOrderId(id);
+
+        if ( orderDb ) await orderController.deleteById( id );
+        if (orderItemDb)await orderItemsController.deleteByid( orderItemDb.id );
+            
+        sendSuccess( req, res, 200, {
+            data: {
+                deleted: true
+            }
+        });
+
+    } catch (err) {
+        await transaction.rollback();
+        console.error( err );
+        return sendError(req, res, 500, '500 Internal Server Error')
+    }
+});
+
+router.get( '/user/cart', async (req, res) => {
+    try {
+        if (!req.user) return sendError(req, res, 401, 'Unauthorized');
+    
+        // console.log( req.user.id )
+        const ordersDb = await orderController.getOrdersInCartByUserId( req.user.id);
+    
+        const updateOrdersItem = await Promise.all( 
+            ordersDb.map( async (value) => {
+                const orderItem = await orderItemsController.getOrderItemByOrderId( value.id );
+                return {...value.dataValues, orderItem:  orderItem.dataValues }
+            })
+        );
+    
+        const updateProducts = await Promise.all(
+            updateOrdersItem.map( async (order) =>{
+                const productDb = await productController.getById( order.orderItem.product_id);
+                return {...order, product: productDb.dataValues};
+            })
+        )
+    
+        sendSuccess( req, res, 200, { 
+            msg: '',
+            data: { 
+                orders: updateProducts
+            }
+        });
+    } catch (err) {
+        return sendError( req, res, 500, '500 Internal Server Error');
+    }
 });
 
 router.post('/item/add', async (req, res) => {
