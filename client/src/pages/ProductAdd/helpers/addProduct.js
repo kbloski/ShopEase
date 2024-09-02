@@ -6,8 +6,13 @@ export const addProduct = (event, form ) => {
     formData.append('description', form.description);
     formData.append('price', form.price);
     formData.append('available_stock', form.available_stock);
-    formData.append('category_id', form.categoryId);
+    
+    if ( form.categoryId ){
+        formData.append('category_id', form.categoryId);
+    }
 
+
+    console.log( form.categoryId );
     if ( form.pictures.length > 0) form.pictures.forEach( file => formData.append('images', file) );
 
     fetch(
