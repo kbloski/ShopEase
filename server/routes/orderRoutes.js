@@ -15,19 +15,15 @@ router.get( '/user/cart', async (req, res) => {
     const updatedOrders = await Promise.all( 
         ordersDb.map( async (value) => {
             const orderItem = await orderItemsController.getOrderItemByOrderId( value.id );
-            return {...value, orderItem:  orderItem.dataValues }
+            return {...value.dataValues, orderItem:  orderItem.dataValues }
         })
     );
 
-    const transformedOrders = updatedOrders.map(value => {
-        return { ...value.dataValues };
-    });
-    
 
     sendSuccess( req, res, 200, { 
         msg: '',
         data: { 
-            orders: transformedOrders
+            orders: updatedOrders
         }
     });
 });
