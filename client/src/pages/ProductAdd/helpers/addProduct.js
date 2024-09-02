@@ -12,7 +12,6 @@ export const addProduct = (event, form ) => {
     }
 
 
-    console.log( form.categoryId );
     if ( form.pictures.length > 0) form.pictures.forEach( file => formData.append('images', file) );
 
     fetch(
