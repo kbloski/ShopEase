@@ -40,7 +40,6 @@ export default function ProductAdd(props) {
                         multiple
                     />
                 </div>
-
                 <div>
                     <label htmlFor="nameControl" className="form-label">Name</label>
                     <input
