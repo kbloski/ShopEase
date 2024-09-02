@@ -12,18 +12,24 @@ router.get( '/user/cart', async (req, res) => {
     // console.log( req.user.id )
     const ordersDb = await orderController.getOrdersInCartByUserId( req.user.id);
 
-    const updatedOrders = await Promise.all( 
+    const updateOrdersItem = await Promise.all( 
         ordersDb.map( async (value) => {
             const orderItem = await orderItemsController.getOrderItemByOrderId( value.id );
             return {...value.dataValues, orderItem:  orderItem.dataValues }
         })
     );
 
+    const updateProducts = await Promise.all(
+        updateOrdersItem.map( async (order) =>{
+            const productDb = await productController.getById( order.orderItem.product_id);
+            return {...order, product: productDb.dataValues};
+        })
+    )
 
     sendSuccess( req, res, 200, { 
         msg: '',
         data: { 
-            orders: updatedOrders
+            orders: updateProducts
         }
     });
 });
