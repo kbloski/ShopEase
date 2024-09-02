@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import { webTokenManager } from "../../utils/WebTokenManager.js";
 import { getOrders } from "./helpers/useEffectHelper.js";
 import { ListItem } from "./styled/ListItem.js";
-
-
+import { useNavigate } from 'react-router-dom';
+import { proceedToCheckout } from "./helpers/proccedToCheckout.js";
 
 export default function Cart(props){
+    const navigate = useNavigate();
     const userToken = webTokenManager.getToken();
-
     const [priceSummary, setPriceSummary] = useState(0);
     const [orders, setOrders] = useState( [] );
 
@@ -38,8 +38,9 @@ export default function Cart(props){
         setOrders( prevOrders => prevOrders.filter( order => order.id !== id));
     };
 
-
-
+    const proccedToCheckoutButton = async () => {
+        proceedToCheckout(orders, navigate);
+    }
 
     
     if (!userToken) {
@@ -74,7 +75,7 @@ export default function Cart(props){
                     </section>
                     
                     <div className="col-12 d-flex justify-content-end">
-                        <button className="btn btn-success">DOSTAWA I PŁATNOŚĆ</button>
+                        <button className="btn btn-success" onClick={proccedToCheckoutButton}>DOSTAWA I PŁATNOŚĆ</button>
                     </div>
                 </div>
             </div>
