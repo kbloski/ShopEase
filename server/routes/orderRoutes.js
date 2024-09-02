@@ -8,16 +8,18 @@ const router = express.Router();
 
 router.put('/items/:itemId', async(req, res) => {
     try {
-        const { itemId} = req.params;
+        const { itemId } = req.params;
         if (!itemId) return sendError(req, res, 400, '400 Bad Request');
+        
+        if (!req.user) return sendError( req, res, 401, '401 Unauthorized');
         
         const orderItemDb = await orderItemsController.getById(itemId);
         if (!orderItemDb) return sendError( req, res, 404, '404 Not Found');
-
+        
         const updatedData = req.body;
         await orderItemsController.updateById( itemId , updatedData );
 
-        sendSuccess( req, res, 200, {
+        return sendSuccess( req, res, 200, {
             data: {
                 updated: true
             }
