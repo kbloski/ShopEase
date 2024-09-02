@@ -2,10 +2,35 @@ import express from 'express';
 import { orderController, orderItemsController, productController, userController } from '../controllers/controllers.js';
 import { sequelize } from '../utility/db.js';
 import { isIntegerString } from '../utility/validate.js';
-import { sendError } from '../utility/errorUtils.js';
-import { upload } from '../utility/uploadFiles.js';
+import { sendError, sendSuccess } from '../utility/errorUtils.js';
 
 const router = express.Router();
+
+router.get( '/user/cart', async (req, res) => {
+    if (!req.user) return sendError(req, res, 401, 'Unauthorized');
+
+    // console.log( req.user.id )
+    const ordersDb = await orderController.getOrdersInCartByUserId( req.user.id);
+
+    const updatedOrders = await Promise.all( 
+        ordersDb.map( async (value) => {
+            const orderItem = await orderItemsController.getOrderItemByOrderId( value.id );
+            return {...value, orderItem:  orderItem.dataValues }
+        })
+    );
+
+    const transformedOrders = updatedOrders.map(value => {
+        return { ...value.dataValues };
+    });
+    
+
+    sendSuccess( req, res, 200, { 
+        msg: '',
+        data: { 
+            orders: transformedOrders
+        }
+    });
+});
 
 router.post('/item/add', async (req, res) => {
     const transaction = await sequelize.transaction()

@@ -11,7 +11,7 @@ const registerRoutes = (app) => {
     app.use('/api/categories', categoryRoutes)
     app.use('/api/pictures', pictureRoutes)
     app.use('/api/reviews', reviewRoutes);
-    app.use('/api/order', orderRoutes);
+    app.use('/api/orders', orderRoutes);
 }
 
 
