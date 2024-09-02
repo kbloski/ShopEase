@@ -1,6 +1,8 @@
 Basic Koszyk
 Widok wszystkich produktów dodanych do koszyka, wraz z cenami i możliwością edycji ilości.
 
+Active button store - add product
+
 Finalizacja zamówienia (Wybór dostawy i płatności)
 Opcje Płatności: Integracja z popularnymi metodami płatności (np. karty płatnicze, PayPal, BLIK).
 Opcje Dostawy: Wybór metody dostawy (np. kurier, odbiór w punkcie).

@@ -25,7 +25,17 @@ export default function Cart(props){
             , 0);
 
         setPriceSummary( newPriceSummary.toFixed(2) );
-    })
+    }, [orders])
+
+    const updateOrder = (id, updateData) => {
+        setOrders( prevOrders => prevOrders.map( order => {
+            return order.id === id ? { ...order, ...updateData} : order
+        }))
+    }
+
+    const removeOrder = (id) => {
+        setOrders( prevOrders => prevOrders.filter( order => order.id !== id));
+    };
 
     return (
         <div className="container p-2">
@@ -35,7 +45,7 @@ export default function Cart(props){
                     <section id="orders">
                         <ul className="list-group list-group-flush">
                             { orders.map( (order, index) => {
-                                return <ListItem key={order.id} order={order}/>
+                                return <ListItem key={order.id} order={order} onRemoveOrder={removeOrder} />
                             })}
                         </ul>
                     </section>
