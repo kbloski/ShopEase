@@ -11,7 +11,7 @@ export function addToCard(event,){
 
     const token = webTokenManager.getToken();
     fetch( 
-        'http://localhost:3010/api/order/item/add',
+        'http://localhost:3010/api/orders/item/add',
         {
             method: 'POST',
             headers: {
