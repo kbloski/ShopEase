@@ -13,6 +13,7 @@ import Store from './pages/Store/Store.js';
 import ProductCard from './pages/ProductCard/ProductCard.js';
 import ReviewAdd from './pages/ReviewAdd/ReviewAdd.js';
 import Cart from './pages/Cart/Cart.js';
+import { Checkout } from './pages/Checkout/Checkout.js';
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
             <Route path= { basicUrl + '/product/:id/card'} element={<ProductCard />}/>
             <Route path= { basicUrl  + '/product/:id/review/add' } element={ <ReviewAdd />} />
             <Route path= {basicUrl + '/cart'} element={ <Cart /> } />
+            <Route path={ basicUrl + '/checkout'} element={ <Checkout />} />
           </Routes>
     </div>
   );
