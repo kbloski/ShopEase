@@ -18,5 +18,4 @@ router.get('/methods/all', async (req, res) => {
 })
 
 
-
 export default router;
