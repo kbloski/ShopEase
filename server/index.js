@@ -18,5 +18,4 @@ const registerRoutes = (app) => {
     app.use('/api/addresses', addressRoutes);
 }
 
-
 export default registerRoutes;

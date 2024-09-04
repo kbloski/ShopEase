@@ -23,8 +23,8 @@ export class UserController {
         return userDb;
     };
 
-    async updateAddress( userDb, addressDb){
-        return await userController.updateById( { adress_id: addressDb.id }, {where: { id: userDb.id } }  )
+    async updateAddressByUserId( userId, addressDb){
+        await userController.updateById(userId, {address_id: addressDb.id})
     }
     
     async updateById(id, userData){
