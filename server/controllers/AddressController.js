@@ -1,12 +1,13 @@
 import { Address } from "../models/schemas.js";
+import { userController } from "./controllers.js";
 
 export class AddressController {
-    async getById(id){
-        return await Address.findByPk(id);
-    }
-
     async createAddress(addressData){
         return await Address.create(addressData);
+    }
+    
+    async getById(id){
+        return await Address.findByPk(id);
     }
 
     async updateById(id, addressData){
@@ -17,4 +18,8 @@ export class AddressController {
             }
         )
     }
+
+    async deleteById(id){
+        return await Address.destroy( {where: {id: id}})
+    };
 };

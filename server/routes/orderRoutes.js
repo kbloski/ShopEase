@@ -6,6 +6,10 @@ import { sendError, sendSuccess } from '../utility/errorUtils.js';
 
 const router = express.Router();
 
+router.post('/confirm', async (req, res) => {
+    
+})
+
 router.put('/items/:itemId', async(req, res) => {
     try {
         const { itemId } = req.params;
