@@ -7,8 +7,8 @@ import { OrderController } from "./OrderController.js";
 import { OrderItemsController } from "./OrderItemsController.js";
 import { PaymentsController } from "./PaymentsController.js";
 import { ReviewController } from "./ReviewsController.js";
-import { Delivery } from "../models/DeliveryModel.js";
 import { DeliveryController } from "./DeliveryController.js";
+import { DeliveryMethodsController } from "./DeliveryMethods.js";
 
 const userController = new UserController();
 const addressController = new AddressController();
@@ -20,6 +20,7 @@ const orderItemsController = new OrderItemsController();
 const paymentsController = new PaymentsController();
 const reviewController = new ReviewController();
 const deliveryController = new DeliveryController();
+const deliveryMethodController = new DeliveryMethodsController();
 
 
 export { 
@@ -32,7 +33,8 @@ export {
     orderItemsController,
     paymentsController,
     reviewController,
-    deliveryController
+    deliveryController,
+    deliveryMethodController
 }
 
 

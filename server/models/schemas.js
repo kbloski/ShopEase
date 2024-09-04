@@ -99,6 +99,12 @@ Order.belongsTo(Delivery, {
     foreignKey: 'delivery_id'
 })
 
+DeliveryMethods.hasMany(Delivery, {
+    foreignKey: 'delivery_method_id'
+});
+Delivery.hasOne(DeliveryMethods, {
+    foreignKey: 'delivery_method_id'
+} )
 
 
 await sequelize.sync();  

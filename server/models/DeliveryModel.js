@@ -26,11 +26,6 @@ const Delivery = sequelize.define('Delivery', {
             isDecimal: true
         }
     },
-
-    delivery_method: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
     
     delivery_status: {
         type: DataTypes.ENUM(...arrDeliveryStatus),

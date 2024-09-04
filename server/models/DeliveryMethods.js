@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../utility/db.js";
 
-const DeliveryMethods = sequelize.define('delivery_methods', {
+const DeliveryMethods = sequelize.define('DeliveryMethods', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
