@@ -48,7 +48,10 @@ export default function Navigation(props){
                     ) 
                 }
                 <li>
-                    <Link to={basicUrl + '/address/add'} >AddressAdd</Link>
+                    <Link to={basicUrl + '/address/add'} >Address Add</Link>
+                </li>
+                <li>
+                    <Link to={basicUrl + '/delivery/methods'} >Delivery Methods</Link>
                 </li>
                 <li><Link to={ basicUrl }>
                     { capitalizeFirstLetter( storeName.toUpperCase() ) }
