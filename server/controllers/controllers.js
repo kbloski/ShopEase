@@ -8,7 +8,7 @@ import { OrderItemsController } from "./OrderItemsController.js";
 import { PaymentsController } from "./PaymentsController.js";
 import { ReviewController } from "./ReviewsController.js";
 import { DeliveryController } from "./DeliveryController.js";
-import { DeliveryMethodsController } from "./DeliveryMethods.js";
+import { DeliveryMethodsController } from "./DeliveryMethodsController.js";
 
 const userController = new UserController();
 const addressController = new AddressController();

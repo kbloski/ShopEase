@@ -3,8 +3,8 @@ import { DeliveryMethods } from "../models/DeliveryMethods.js";
 
 export class DeliveryMethodsController
 {
-    async createDelivery( deliveryData ){
-        return await DeliveryMethods.create( deliveryData );
+    async createDeliveryMethod( deliveryMethodData ){
+        return await DeliveryMethods.create( deliveryMethodData );
     }
 
     async getAll (){
