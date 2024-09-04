@@ -23,7 +23,7 @@ const deliveryController = new DeliveryController();
 const deliveryMethodController = new DeliveryMethodsController();
 
 try {
-    const adminDb = userController.getUserByEmail('admin@example.com');
+    const adminDb = await userController.getUserByEmail('admin@example.com');
 
     if (!adminDb){
         userController.createUser({

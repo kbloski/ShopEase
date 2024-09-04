@@ -10,7 +10,6 @@ import { basicUrl } from "../../config/store.config.js";
 export function Checkout(props) {
     const navigate = useNavigate();
     const payments = ['Przelewy24', 'Blik'];
-
     const [deliveryMethods, setDeliveryMethods] = useState([]);
     const [delivery, setDelivery] = useState({});
     const [ordersCart, setOrdersCart] = useState([]);
@@ -110,24 +109,31 @@ export function Checkout(props) {
                             <div className="card-title">Dane do wysyłki:</div>
                             <div className="card-body">
                                 <table>
-                                    <tr>
-                                        <th>Street</th><td>{address.street}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>House Number</th><td>{address.house_number}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>City</th><td>{address.city}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>State</th><td>{address.state}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Postal Code</th><td>{address.postal_code}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Country</th><td>{address.country}</td>
-                                    </tr>
+                                    {
+                                     address ? (
+                                     <div>
+                                        <tr>
+                                            <th>Street</th><td>{address.street}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>House Number</th><td>{address.house_number}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>City</th><td>{address.city}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>State</th><td>{address.state}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Postal Code</th><td>{address.postal_code}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Country</th><td>{address.country}</td>
+                                        </tr>
+                                     </div>
+                                     ) : null
+                                    
+                                    }
                                     <tr>
                                         <td colSpan='2'>
                                             <button className="btn btn-warning ms-2 w-100" onClick={ onClickUpdateAddress }>Update Address</button>
