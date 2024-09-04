@@ -22,6 +22,22 @@ const reviewController = new ReviewController();
 const deliveryController = new DeliveryController();
 const deliveryMethodController = new DeliveryMethodsController();
 
+try {
+    const adminDb = userController.getUserByEmail('admin@example.com');
+
+    if (!adminDb){
+        userController.createUser({
+            id: 1,
+            email: 'admin@example.com',
+            password: 'test',
+            role: 'admin',
+            name: 'admin',
+            surname: 'admin'
+        });
+    }
+} catch (err){
+    console.error(err)
+}
 
 export { 
     userController,

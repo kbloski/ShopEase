@@ -102,12 +102,12 @@ Order.belongsTo(Delivery, {
 DeliveryMethods.hasMany(Delivery, {
     foreignKey: 'delivery_method_id'
 });
-Delivery.hasOne(DeliveryMethods, {
+Delivery.belongsTo(DeliveryMethods, {
     foreignKey: 'delivery_method_id'
 } )
 
 
-await sequelize.sync();  
+await sequelize.sync( );  
 
 export {
     User,
@@ -122,3 +122,4 @@ export {
     Delivery,
     DeliveryMethods
 }
+
