@@ -14,6 +14,7 @@ import ProductCard from './pages/ProductCard/ProductCard.js';
 import ReviewAdd from './pages/ReviewAdd/ReviewAdd.js';
 import Cart from './pages/Cart/Cart.js';
 import { Checkout } from './pages/Checkout/Checkout.js';
+import { AddressAdd } from './pages/AddressAdd/AddressAdd.js';
 
 function App() {
 
@@ -30,6 +31,7 @@ function App() {
             <Route path= { basicUrl  + '/product/:id/review/add' } element={ <ReviewAdd />} />
             <Route path= {basicUrl + '/cart'} element={ <Cart /> } />
             <Route path={ basicUrl + '/checkout'} element={ <Checkout />} />
+            <Route path={ basicUrl + '/address/add'} element={ <AddressAdd />} />
           </Routes>
     </div>
   );
