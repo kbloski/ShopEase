@@ -9,6 +9,7 @@ import { Category } from "./CategoryModel.js";
 import { Payments } from "./PaymentsModel.js";
 import { Reviews } from "./ReviewsModel.js";
 import { Delivery } from "./DeliveryModel.js";
+import { DeliveryMethods } from "./DeliveryMethods.js";
 
 
 // TODO - add relations model in this place
@@ -112,5 +113,6 @@ export {
     Category,
     Payments,
     Reviews,
-    Delivery
+    Delivery,
+    DeliveryMethods
 }

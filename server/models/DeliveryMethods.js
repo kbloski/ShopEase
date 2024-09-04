@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../utility/db.js";
 
-const DeliveryMethod = sequelize.define('delivery_methods', {
+const DeliveryMethods = sequelize.define('delivery_methods', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -32,4 +32,4 @@ const DeliveryMethod = sequelize.define('delivery_methods', {
     }
 })
 
-export { DeliveryMethod };
+export { DeliveryMethods };
