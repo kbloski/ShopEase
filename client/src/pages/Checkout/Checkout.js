@@ -3,15 +3,19 @@ import { getDeliveryMethods, getOrdersCartForUser } from "./helpers/useEffectHel
 import { OrderBar } from "./styled/OrderBar.js";
 import handleInputChange from "../../utils/formHandlers.js";
 import { submitPay } from "./helpers/submitPay.js";
+import { getAddressDb } from "./helpers/getAddress.js";
+import { useNavigate } from "react-router-dom";
+import { basicUrl } from "../../config/store.config.js";
 
 export function Checkout(props) {
+    const navigate = useNavigate();
     const payments = ['Przelewy24', 'Blik'];
 
     const [deliveryMethods, setDeliveryMethods] = useState([]);
     const [delivery, setDelivery] = useState({});
     const [ordersCart, setOrdersCart] = useState([]);
-    const [paymentMethod, setPaymentMethod] = useState(payments[0] || ''); // domyślna wartość
-    const [address, setAddress] = useState({ country: 'Poland' });
+    const [paymentMethod, setPaymentMethod] = useState(payments[0] || '');
+    const [address, setAddress] = useState({});
     const [summaryPrice, setSummaryPrice] = useState(0);
 
     useEffect(() => {
@@ -42,14 +46,13 @@ export function Checkout(props) {
         setSummaryPrice(Math.round(price * 100) / 100);
     }, [delivery, ordersCart]);
 
-    function onClickAddress(event) {
-        const name = event.target.name;
-        const value = event.target.value;
-        setAddress(prev => ({
-            ...prev,
-            [name]: value
-        }));
-    }
+    useEffect( ()=> {
+        const getAddress = async () => {
+            const address = await getAddressDb();
+            setAddress( address );
+        };
+        getAddress();
+    }, [])    
 
     const onChangeDeliveryMethod = (event) => {
         const selectedId = event.target.value;
@@ -60,6 +63,10 @@ export function Checkout(props) {
     const onSubmitPay = (event) => {
         event.preventDefault();
         submitPay(  );
+    }
+
+    const onClickUpdateAddress = (event) => {
+        navigate(basicUrl + '/address/add')
     }
 
     return (
@@ -97,43 +104,40 @@ export function Checkout(props) {
                             }
                         </select>
                     </div>
-                    <div>
+                    <div className="col-12">
                         <h4>Address</h4>
-                        <label htmlFor="streetControl" className="form-label">Street</label>
-                        <input
-                            type="text"
-                            name="street"
-                            id="streetControl"
-                            className="form-control"
-                            onChange={onClickAddress}
-                            required
-                        />
-                        <label htmlFor="houseNumberControl" className="form-label">House Number</label>
-                        <input
-                            type="text"
-                            name="house_number"
-                            id="houseNumberControl"
-                            className="form-control"
-                            onChange={onClickAddress}
-                        />
-                        <label htmlFor="cityControl" className="form-label">City</label>
-                        <input
-                            type="text"
-                            name="city"
-                            id="cityControl"
-                            className="form-control"
-                            onChange={onClickAddress}
-                            required
-                        />
-                        <label htmlFor="postalCodeControl" className="form-label">Postal Code</label>
-                        <input
-                            type="text"
-                            name="postal_code"
-                            id="postalCodeControl"
-                            className="form-control"
-                            onChange={onClickAddress}
-                            required
-                        />
+                        <div className="card p-1">
+                            <div className="card-title">Dane do wysyłki:</div>
+                            <div className="card-body">
+                                <table>
+                                    <tr>
+                                        <th>Street</th><td>{address.street}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>House Number</th><td>{address.house_number}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>City</th><td>{address.city}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>State</th><td>{address.state}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Postal Code</th><td>{address.postal_code}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Country</th><td>{address.country}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colSpan='2'>
+                                            <button className="btn btn-warning ms-2 w-100" onClick={ onClickUpdateAddress }>Update Address</button>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+
+                        </div>
                     </div>
                     <div className="col-12">
                         <h4>Payment Method</h4>
