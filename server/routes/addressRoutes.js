@@ -36,10 +36,9 @@ router.get('/for-user/:userId', async (req, res) => {
         if (!userDb) return sendError(req, res, 400, '400 Bad Request: Don\'t find user')
 
         const address = await addressController.getById( userDb.address_id);
-        await userController.updateAddress( userDb, address);
 
         sendSuccess( req, res, 200, { 
-            data: address ?? { address: 'No exists'}
+            data: address.dataValues
         })
     } catch (err){
         console.error(err);
