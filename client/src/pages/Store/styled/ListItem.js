@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { basicUrl } from "../../../config/store.config";
+import { basicUrl } from "../../../common/config/store.config";
 
 export default function ListItem(props){
 

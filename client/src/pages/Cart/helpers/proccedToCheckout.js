@@ -1,4 +1,4 @@
-import { basicUrl } from "../../../config/store.config.js";
+import { basicUrl } from "../../../common/config/store.config.js";
 
 export async function proceedToCheckout( orders , navigate ){
     // const sendMessage = () => {

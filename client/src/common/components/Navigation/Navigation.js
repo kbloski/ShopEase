@@ -1,9 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-// import { storeName, 'shopeasy' } from "../../config/store.config.js";
-import { webTokenManager } from "../../utils/WebTokenManager.js";
-import { createUrl } from "../../common/createUrl.js";
-import { storeName } from "../../common/config/store.config.js";
+import { storeName, basicUrl } from "../../config/store.config.js";
+import { webTokenManager } from "../../../utils/WebTokenManager.js";
 
 function capitalizeFirstLetter(str) {
   if (str.length === 0) return str;
@@ -12,11 +10,11 @@ function capitalizeFirstLetter(str) {
 
 export default function Navigation(props) {
   // eslint-disable-next-line no-unused-vars
-  const [token, setToken] = useState({});
+  const [token, setToken] = useState(null);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setToken(webTokenManager.getTokenDecoded());
+      setToken(webTokenManager.getTokenDecoded().data);
     }, 1000);
 
     return () => clearInterval(intervalId);
@@ -40,47 +38,41 @@ export default function Navigation(props) {
       <div id="navbarNav" className="collapse navbar-collapse">
         <ul className="navbar-nav p-3">
           <li className="nav-item dropdown">
-            { token.valid ? (
+            {webTokenManager.getToken() ? (
               <button onClick={logOut} className="btn btn-danger">
                 Log out
               </button>
             ) : null}
           </li>
-          {!token.valid && (
+          {!webTokenManager.getToken() && (
             <>
               <li className="nav-item dropdown">
-                <Link to={ createUrl("/login") }>Login</Link>
+                <Link to={basicUrl + "/login"}>Login</Link>
               </li>
               <li className="nav-item dropdown">
-                <Link to={ createUrl("/register") }>Register</Link>
+                <Link to={basicUrl + "/register"}>Register</Link>
               </li>
             </>
           )}
-          {
-            (['admin', 'shop_manager'].includes(token.data?.role))  && (
-              <>
-                <li className="nav-item dropdown">
-                    <Link to={ createUrl("/product/add") }>Add product</Link>
-                </li>
-                <li className="nav-item dropdown">
-                  <Link to={ createUrl("/delivery/methods") }>Delivery Methods</Link>
-                </li>
-              </>
-            )
-          }
           <li className="nav-item dropdown">
-            <Link to={ createUrl("/address/add") }>Address Add</Link>
+            <Link to={basicUrl + "/address/add"}>Address Add</Link>
           </li>
           <li className="nav-item dropdown">
-            <Link to={'shopeasy'}>
+            <Link to={basicUrl + "/product/add"}>Add product</Link>
+          </li>
+          <li className="nav-item dropdown">
+            <Link to={basicUrl + "/delivery/methods"}>Delivery Methods</Link>
+          </li>
+          <li className="nav-item dropdown">
+            <Link to={basicUrl}>
               {capitalizeFirstLetter(storeName.toUpperCase())}
             </Link>
           </li>
           <li className="nav-item dropdown">
-            <Link to={ createUrl("/store") }>Store</Link>
+            <Link to={basicUrl + "/store"}>Store</Link>
           </li>
           <li className="nav-item dropdown">
-            <Link to={ createUrl("/cart") }>Cart</Link>
+            <Link to={basicUrl + "/cart"}>Cart</Link>
           </li>
         </ul>
       </div>

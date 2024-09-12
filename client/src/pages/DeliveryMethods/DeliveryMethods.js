@@ -70,7 +70,7 @@ export function DeliveryMethods(props){
               <h3>Methods List</h3>  
               <ul>
                 {
-                    deliveryMethods.map( (d, index) => <li>
+                    deliveryMethods.map( (d, index) => <li key={d.id}>
                         <div className="d-flex justify-content-between" >
                             <div >{index}</div>
                             <div>{d.name}</div>

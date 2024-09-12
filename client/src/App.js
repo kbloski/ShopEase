@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import { basicUrl }  from './config/store.config.js';
 
 import Footer from './components/Footer/Footer.js';
 import Header from './components/Header/Header.js';
@@ -17,25 +16,28 @@ import { Checkout } from './pages/Checkout/Checkout.js';
 import { AddressAdd } from './pages/AddressAdd/AddressAdd.js';
 import { DeliveryMethods } from './pages/DeliveryMethods/DeliveryMethods.js';
 
+// import { 'shopeasy' }  from './config/store.config.js';
+import { createUrl } from './common/createUrl.js';
+
 
 function App() {
 
   return (
     <div>
           <Routes>
-            <Route path= { basicUrl } element={<HomePage />} />
-            <Route path= { basicUrl + '/register'} element={ <Register /> } />
-            <Route path= { basicUrl + '/login'} element={<Login />} />
-            <Route path= { basicUrl + '/store' } element={<Store />} />
-            <Route path= { basicUrl + '/product/add'} element={ <ProductAdd />} />
-            <Route path= { basicUrl + '/product/:id/card'} element={<ProductCard />}/>
-            <Route path= { basicUrl + '/product/:id/card'} element={<ProductCard />}/>
-            <Route path= { basicUrl  + '/product/:id/review/add' } element={ <ReviewAdd />} />
-            <Route path= {basicUrl + '/cart'} element={ <Cart /> } />
-            <Route path={ basicUrl + '/checkout'} element={ <Checkout />} />
-            <Route path={ basicUrl + '/address/add'} element={ <AddressAdd />} />
-            <Route path={ basicUrl + '/address/add'} element={ <AddressAdd />} />
-            <Route path={ basicUrl + '/delivery/methods'} element={ <DeliveryMethods /> } />
+            <Route path= { createUrl() } element={<HomePage />} />
+            <Route path= { createUrl('/register') } element={ <Register /> } />
+            <Route path= { createUrl('/login') } element={<Login />} />
+            <Route path= { createUrl('/store')  } element={<Store />} />
+            <Route path= { createUrl('/product/add') } element={ <ProductAdd />} />
+            <Route path= { createUrl('/product/:id/card') } element={<ProductCard />}/>
+            <Route path= { createUrl('/product/:id/card') } element={<ProductCard />}/>
+            <Route path= { createUrl('/product/:id/review/add') } element={ <ReviewAdd />} />
+            <Route path= {createUrl('/cart') } element={ <Cart /> } />
+            <Route path={ createUrl('/checkout') } element={ <Checkout />} />
+            <Route path={ createUrl('/address/add') } element={ <AddressAdd />} />
+            <Route path={ createUrl('/address/add') } element={ <AddressAdd />} />
+            <Route path={ createUrl('/delivery/methods') } element={ <DeliveryMethods /> } />
           </Routes>
     </div>
   );

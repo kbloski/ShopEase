@@ -1,8 +1,7 @@
-import { webTokenManager } from "../../../utils/WebTokenManager.js"
+import { webTokenManager } from "../../../utils/WebTokenManager.js";
 
 export async function submitAddAddress( address ){
     const userToken = webTokenManager.getToken();
-    // console.log( address )
 
     await fetch(
         'http://localhost:3010/api/addresses/create-for-user',

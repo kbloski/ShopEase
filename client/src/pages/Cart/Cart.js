@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { webTokenManager } from "../../utils/WebTokenManager.js";
 import { getOrders } from "./helpers/useEffectHelper.js";
 import { ListItem } from "./styled/ListItem.js";
 import { useNavigate } from 'react-router-dom';
 import { proceedToCheckout } from "./helpers/proccedToCheckout.js";
+import { webTokenManager } from "../../utils/WebTokenManager.js";
 
 export default function Cart(props){
     const navigate = useNavigate();

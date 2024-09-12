@@ -1,7 +1,7 @@
 import { useEffect, useState} from 'react';
 import { useParams } from "react-router-dom"
 import { webTokenManager } from '../../utils/WebTokenManager.js';
-import { basicUrl } from '../../config/store.config.js';
+import { basicUrl } from '../../common/config/store.config.js';
 import { Link } from 'react-router-dom';
 import { getProduct, getPictures, getReviews } from './helpers/useEffectHelper.js';
 import { addToCard } from './helpers/addToCard.js';
@@ -14,6 +14,8 @@ export default function ProductCard(props){
     const [ reviewsArr, setReviewsArr] = useState([]);
     const [ quantity, setQuantity] = useState(1);
 
+    console.log( picturesArr )
+
     useEffect( ()=>{
         getProduct(id, setProduct);
         getPictures(id, setPicturesArr);
@@ -22,12 +24,12 @@ export default function ProductCard(props){
 
 
     return(
-        <div id='container p-2'>
+        <div className='p-2'>
             <div className='row gx-4'>
                 <div className='col-8 bg-light' style={ { minHeight: '500px' } } >
-                    { picturesArr.map( picture => {
-                        return <img key={picture.id} src={`http://localhost:3010/api/pictures/${picture.id}`} alt='' className='img-fluid'/>
-                    })}
+                    { picturesArr.length > 0 ? picturesArr.map( picture => {
+                        return <img key={picture.id} src={`http://localhost:3010/api/pictures/${picture.id}`} alt='' className='img-fluid' width={500} height={500}/>
+                    }) : <img src='\images\default-product-img.png' alt='Brak obrazu' />}
                 </div>  
                 <div className='col-4 d-flex align-items-center justify-content-center'>
                     <div>
@@ -77,8 +79,6 @@ export default function ProductCard(props){
                             </div>
                         )
                     })}
-
-                        
                 </div>
             </div>
         </div>

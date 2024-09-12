@@ -1,4 +1,4 @@
-const TOKEN_KEY = 'authToken'; // lub 'appName_authToken'
+const TOKEN_KEY = 'authToken';
 const USERAUTH_KEY = 'userAuth'; 
 
 function initializeLocalStorage(){
@@ -11,5 +11,4 @@ initializeLocalStorage();
 export {
     TOKEN_KEY,
     USERAUTH_KEY,
-    
 }

@@ -1,4 +1,6 @@
 import { Component } from "react";
+import { storeName } from "../../common/config/store.config";
+import { createUrl } from "../../common/createUrl";
 
 export default class HomePage extends Component{
     // constructor(props){
@@ -9,9 +11,19 @@ export default class HomePage extends Component{
 
     render(){
         return (
-            <div>
-                <h1>HomePage</h1>
-            </div>
+            <>
+                <div>
+                    <h2>Witaj w {storeName}</h2>
+                    <p>Znajdź najlepsze produkty w atrakcyjnych cenach.</p>
+                    
+                        <a href={createUrl('/store')} class="">
+                            <button className="btn btn-success">
+                                Zobacz nasze produkty
+                            </button>
+                        </a>
+                    
+                </div>
+            </>
         )
     }
 }

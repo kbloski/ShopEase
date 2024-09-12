@@ -1,9 +1,8 @@
 
-const storeName = 'ShopEasy Application';
+const storeName = 'Easy Shop';
 const basicUrl = '/shopeasy'
-
 
 export {
     storeName,
-    basicUrl
+    basicUrl,
 }

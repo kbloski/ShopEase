@@ -1,4 +1,4 @@
-import { basicUrl } from "../../../config/store.config.js";
+import { basicUrl } from "../../../common/config/store.config.js";
 import { webTokenManager } from "../../../utils/WebTokenManager.js";
 
 
